@@ -6,7 +6,7 @@
   <link href="https://oybox.github.io/atom.xml" rel="self"/>
   
   <link href="https://oybox.github.io/"/>
-  <updated>2021-08-06T16:33:21.809Z</updated>
+  <updated>2021-08-09T07:11:59.117Z</updated>
   <id>https://oybox.github.io/</id>
   
   <author>
@@ -17,19 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>这是我的第一篇博客</title>
     <link href="https://oybox.github.io/2021/08/07/frist/"/>
     <id>https://oybox.github.io/2021/08/07/frist/</id>
     <published>2021-08-06T16:33:21.633Z</published>
-    <updated>2021-08-06T16:33:21.809Z</updated>
+    <updated>2021-08-09T07:11:59.117Z</updated>
     
-    <content type="html"><![CDATA[<p>#<strong>这是我第一篇博客</strong></p><h2 id="这个博客采用的是hexo博客框架，部署到github上。"><a href="#这个博客采用的是hexo博客框架，部署到github上。" class="headerlink" title="这个博客采用的是hexo博客框架，部署到github上。"></a>这个博客采用的是hexo博客框架，部署到github上。</h2>]]></content>
+    <content type="html"><![CDATA[<h2 id="尝试插入段落"><a href="#尝试插入段落" class="headerlink" title="尝试插入段落"></a>尝试插入段落</h2><h3 id="段落如下"><a href="#段落如下" class="headerlink" title="段落如下"></a>段落如下</h3><p>  此博客使用的是hexo+github方式，记录一下自己学到的东西。<br>  这是换行（上面那句末尾加两个空格回车）</p><h2 id="尝试插入代码块"><a href="#尝试插入代码块" class="headerlink" title="尝试插入代码块"></a>尝试插入代码块</h2><h3 id="java代码块："><a href="#java代码块：" class="headerlink" title="java代码块："></a>java代码块：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;你好！&quot;</span>);</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;#&lt;strong&gt;这是我第一篇博客&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&quot;这个博客采用的是hexo博客框架，部署到github上。&quot;&gt;&lt;a href=&quot;#这个博客采用的是hexo博客框架，部署到github上。&quot; class=&quot;headerlink&quot; title=&quot;这个</summary>
+    <summary type="html">&lt;h2 id=&quot;尝试插入段落&quot;&gt;&lt;a href=&quot;#尝试插入段落&quot; class=&quot;headerlink&quot; title=&quot;尝试插入段落&quot;&gt;&lt;/a&gt;尝试插入段落&lt;/h2&gt;&lt;h3 id=&quot;段落如下&quot;&gt;&lt;a href=&quot;#段落如下&quot; class=&quot;headerlink&quot; title=&quot;段</summary>
       
     
     
@@ -42,9 +41,9 @@
     <link href="https://oybox.github.io/2021/08/06/hello-world/"/>
     <id>https://oybox.github.io/2021/08/06/hello-world/</id>
     <published>2021-08-06T06:05:37.122Z</published>
-    <updated>2021-08-06T06:05:37.122Z</updated>
+    <updated>2021-08-09T07:11:56.814Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><p>$$<br>$ hexo new “My New Post”<br>$$</p><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
     
       
