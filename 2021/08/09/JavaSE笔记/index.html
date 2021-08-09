@@ -26,7 +26,7 @@
 <meta property="og:description" content="1.面向过程和面向对象的比较1.1面向过程：侧重的是过程   优点：简单   缺点：代码量大了以后维护性很差 1.2面向对象：侧重的是对象   优点：可扩展性非常强，维护成本低   缺点：新手上手难 1.3造车 画图纸   定义车的属性信息：color、speed、seat….. 定义车的动作：跑   拿着图纸找工厂生产车 1.4总结面向对象的世界里，类就是图纸，属性就是这一类事物拥有的共同属性，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-09T09:37:50.132Z">
-<meta property="article:modified_time" content="2021-08-09T11:11:39.106Z">
+<meta property="article:modified_time" content="2021-08-09T11:46:32.850Z">
 <meta property="article:author" content="OYBox">
 <meta property="article:tag" content="OYBox的个人博客">
 <meta name="twitter:card" content="summary">
@@ -407,9 +407,24 @@
 <li>RuntimeException：运行时异常，一般不会手动处理，出了问题再处理。</li>
 <li>其他Exception：必须经过手动处理。</li>
 <li>Error：一般指系统级错误。<h3 id="17-3异常的处理-try—catch"><a href="#17-3异常的处理-try—catch" class="headerlink" title="17.3异常的处理 try—catch"></a>17.3异常的处理 try—catch</h3>语法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	尝试执行的代码</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">	处理异常代码</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span>&#123;</span><br><span class="line">	最终的，关掉程序</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-⭐.throws和throw尽量少用，少点往上抛。<h1 id="18-泛型"><a href="#18-泛型" class="headerlink" title="18.泛型"></a><font color=red>18.泛型</font></h1><h3 id="18-1泛型的背景"><a href="#18-1泛型的背景" class="headerlink" title="18.1泛型的背景"></a>18.1泛型的背景</h3>java推出泛型以前，程序员可以构建一个元素类型为Object的集合，该集合能够存储任意对象，而在使用该集合的过程中，需要程序员明确和知道存储每个元素的数据类型，否则很容易引发ClassCastException异常.。</li>
+⭐.throws和throw尽量少用，少点往上抛。</li>
 </ol>
 </li>
+</ol>
+<h1 id="18-泛型"><a href="#18-泛型" class="headerlink" title="18.泛型"></a><font color=red>18.泛型</font></h1><h3 id="18-1泛型的背景"><a href="#18-1泛型的背景" class="headerlink" title="18.1泛型的背景"></a>18.1泛型的背景</h3><p>   java推出泛型以前，程序员可以构建一个元素类型为Object的集合，该集合能够存储任意对象，而在使用该集合的过程中，需要程序员明确和知道存储每个元素的数据类型，否则很容易引发ClassCastException异常.。</p>
+<h3 id="18-2泛型的作用"><a href="#18-2泛型的作用" class="headerlink" title="18.2泛型的作用"></a>18.2泛型的作用</h3><ol>
+<li>编译期间检查类型。</li>
+<li>减少数据类型的转换。<br>⭐.泛型的本质就是参数化类型，也就是所操作的数据类型指定为一个参数。<br>好处：</li>
+<li>类型安全。</li>
+<li>消除了强制类型转换。<h3 id="18-3注意事项"><a href="#18-3注意事项" class="headerlink" title="18.3注意事项"></a>18.3注意事项</h3></li>
+<li>泛型类，如果没有指定具体的数据类型，此时，操作类型为Object。</li>
+<li>泛型类的类型参数只能是类类型，不能实基本数据类型。</li>
+<li>泛型类型的逻辑上可以看成是多个不同的类型，但实际上是相同的类型。（内存地址相同）<h3 id="18-4泛型类接口"><a href="#18-4泛型类接口" class="headerlink" title="18.4泛型类接口"></a>18.4泛型类接口</h3>⭐.从泛型类派生于泛型类。</li>
+<li>子类也是泛型类，子类和父类的泛型类型要一致，语法如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildGeneric</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Generic</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>子类不是泛型类，父类要明确泛型的数据类型，语法如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildGeneric</span> <span class="keyword">extends</span> <span class="title">Generic</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="泛型方法的总结"><a href="#泛型方法的总结" class="headerlink" title="泛型方法的总结"></a>泛型方法的总结</h3></li>
+<li>泛型方法能使方法独立于类而产生变化。</li>
+<li>如果static方法要使用泛型能力，就必须使期成为泛型方法。<h3 id="什么是类型通配符"><a href="#什么是类型通配符" class="headerlink" title="什么是类型通配符"></a>什么是类型通配符</h3>类型通配符一般是使用”?”代替具体的类型实参，所以，类型通配符是类型实参，而不是类型形参。</li>
 </ol>
 
       
