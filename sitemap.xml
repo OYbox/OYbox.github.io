@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://oybox.github.io/about/index.html</loc>
+    <loc>https://oybox.github.io/tags/index.html</loc>
     
     <lastmod>2021-08-11</lastmod>
     
@@ -11,7 +11,14 @@
   <url>
     <loc>https://oybox.github.io/repository/index.html</loc>
     
-    <lastmod>2021-08-10</lastmod>
+    <lastmod>2021-08-11</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/about/index.html</loc>
+    
+    <lastmod>2021-08-11</lastmod>
     
   </url>
   
@@ -38,13 +45,6 @@
   
   <url>
     <loc>https://oybox.github.io/2021/08/07/frist/</loc>
-    
-    <lastmod>2021-08-10</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://oybox.github.io/tags/index.html</loc>
     
     <lastmod>2021-08-10</lastmod>
     
