@@ -6,7 +6,7 @@
   <link href="https://oybox.github.io/atom.xml" rel="self"/>
   
   <link href="https://oybox.github.io/"/>
-  <updated>2021-08-10T02:28:06.972Z</updated>
+  <updated>2021-08-12T08:09:21.857Z</updated>
   <id>https://oybox.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MyBatis快速入门</title>
+    <link href="https://oybox.github.io/2021/08/12/MyBatis%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
+    <id>https://oybox.github.io/2021/08/12/MyBatis%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</id>
+    <published>2021-08-12T08:07:12.447Z</published>
+    <updated>2021-08-12T08:09:21.857Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MyBatis快速入门"><a href="#MyBatis快速入门" class="headerlink" title="MyBatis快速入门"></a>MyBatis快速入门</h1><h4 id="MyBatis概述"><a href="#MyBatis概述" class="headerlink" title="MyBatis概述"></a>MyBatis概述</h4><p>  MyBatis是Apache的一个开源项目iBatis,2010年这个项目由Apache software foundation迁移到了google code，并且改名为MyBatis，2013年11月迁移到github。<br>  MyBatis是一个实现了数据持久化的开源框架，简单理解就是对JDBC进行封装。  </p><h4 id="ORMapping-Object-Relationship-Mapping——-对象关系映射"><a href="#ORMapping-Object-Relationship-Mapping——-对象关系映射" class="headerlink" title="ORMapping:Object Relationship Mapping——-对象关系映射"></a>ORMapping:Object Relationship Mapping——-对象关系映射</h4><p>  对象指面向对象<br>  关系指关系型数据库<br>  映射指Java到MySQL的映射，开发者可以以面向对象的思想来管理数据库。  </p><h4 id="MyBatis的优点"><a href="#MyBatis的优点" class="headerlink" title="MyBatis的优点"></a>MyBatis的优点</h4><ul><li>⭐与JDBC相比，减少了50%以上的代码量</li><li>⭐MyBatis是最简单的持久化框架，小巧并且简单易学</li><li>⭐MyBatis相当灵活，不会对应用程序或者数据库的现有设计强加任何影响，SQL写在XML里，从程序代码中彻底分离，降低耦合度，便于统一管理和优化，并可重用。</li><li>⭐<font color="red">提供XML标签，支持编写动态SQL语句。</font></li><li>⭐提供映射标签，支持对象与数据库的ORM字段关系映射。  </li></ul><h4 id="MyBatis的缺点"><a href="#MyBatis的缺点" class="headerlink" title="MyBatis的缺点"></a>MyBatis的缺点</h4><ul><li>⭐SQL语句的编写工作量较大，尤其是字段多、关联表多时，更是如此。对开发人员编写SQL语句的功底有一定的要求。</li><li>⭐SQL语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。</li></ul><h4 id="MyBatis核心接口和类"><a href="#MyBatis核心接口和类" class="headerlink" title="MyBatis核心接口和类"></a>MyBatis核心接口和类</h4><p>  目的是为了获得SqlSession对象。<br>  通过SqlSessionFactoryBuilder中的build()方法得到SqlSessionFactory。<br>  再通过SqlSessionFactory中的openSession()方法最终获取SqlSession对象。  </p><h4 id="MyBatis的开发方式"><a href="#MyBatis的开发方式" class="headerlink" title="MyBatis的开发方式"></a>MyBatis的开发方式</h4><ol><li>使用原生接口</li><li>MapPer代理实现自定义接口</li></ol><h4 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h4><p>1.新建Maven工程，porm.xml</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;MyBatis快速入门&quot;&gt;&lt;a href=&quot;#MyBatis快速入门&quot; class=&quot;headerlink&quot; title=&quot;MyBatis快速入门&quot;&gt;&lt;/a&gt;MyBatis快速入门&lt;/h1&gt;&lt;h4 id=&quot;MyBatis概述&quot;&gt;&lt;a href=&quot;#MyBatis概</summary>
+      
+    
+    
+    
+    <category term="JAVA技术栈" scheme="https://oybox.github.io/categories/JAVA%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+    
+    
+    <category term="笔记" scheme="https://oybox.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>整理一下javaSE笔记</title>
