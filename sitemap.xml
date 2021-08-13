@@ -4,7 +4,14 @@
   <url>
     <loc>https://oybox.github.io/2021/08/12/MyBatis%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</loc>
     
-    <lastmod>2021-08-12</lastmod>
+    <lastmod>2021-08-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/2021/08/09/JavaSE%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2021-08-13</lastmod>
     
   </url>
   
@@ -44,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://oybox.github.io/2021/08/09/JavaSE%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2021-08-10</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://oybox.github.io/2021/08/07/frist/</loc>
     
     <lastmod>2021-08-10</lastmod>
@@ -67,7 +67,7 @@
 
   <url>
     <loc>https://oybox.github.io/</loc>
-    <lastmod>2021-08-12</lastmod>
+    <lastmod>2021-08-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -75,7 +75,7 @@
   
   <url>
     <loc>https://oybox.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2021-08-12</lastmod>
+    <lastmod>2021-08-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -83,8 +83,15 @@
 
   
   <url>
-    <loc>https://oybox.github.io/categories/JAVA%E6%8A%80%E6%9C%AF%E6%A0%88/</loc>
-    <lastmod>2021-08-12</lastmod>
+    <loc>https://oybox.github.io/categories/JavaSE/</loc>
+    <lastmod>2021-08-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/categories/MyBatis/</loc>
+    <lastmod>2021-08-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
