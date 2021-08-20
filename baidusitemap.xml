@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://oybox.github.io/2021/08/20/MyBatis%E5%8A%A8%E6%80%81SQL/</loc>
+    <lastmod>2021-08-20</lastmod>
+  </url>
+  <url>
     <loc>https://oybox.github.io/2021/08/19/%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD/</loc>
     <lastmod>2021-08-19</lastmod>
   </url>
