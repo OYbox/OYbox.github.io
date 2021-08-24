@@ -6,7 +6,7 @@
   <link href="https://oybox.github.io/atom.xml" rel="self"/>
   
   <link href="https://oybox.github.io/"/>
-  <updated>2021-08-23T12:02:59.666Z</updated>
+  <updated>2021-08-24T14:10:28.413Z</updated>
   <id>https://oybox.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring IoC自动装载autowire</title>
+    <link href="https://oybox.github.io/2021/08/24/Spring%20IoC%E8%87%AA%E5%8A%A8%E8%A3%85%E8%BD%BDautowire/"/>
+    <id>https://oybox.github.io/2021/08/24/Spring%20IoC%E8%87%AA%E5%8A%A8%E8%A3%85%E8%BD%BDautowire/</id>
+    <published>2021-08-24T14:09:25.583Z</published>
+    <updated>2021-08-24T14:10:28.413Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Spring-IoC自动装载autowire"><a href="#Spring-IoC自动装载autowire" class="headerlink" title="Spring IoC自动装载autowire"></a>Spring IoC自动装载autowire</h1><p>自动装载是Spring提供的一种更加简便的方式来完成DI（依赖注入），不需要手动配置property，IoC容器会自动选择bean完成注入。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Spring-IoC自动装载autowire&quot;&gt;&lt;a href=&quot;#Spring-IoC自动装载autowire&quot; class=&quot;headerlink&quot; title=&quot;Spring IoC自动装载autowire&quot;&gt;&lt;/a&gt;Spring IoC自动装载autowi</summary>
+      
+    
+    
+    
+    <category term="Spring" scheme="https://oybox.github.io/categories/Spring/"/>
+    
+    
+    <category term="笔记" scheme="https://oybox.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring工厂方法</title>
+    <link href="https://oybox.github.io/2021/08/24/Spring%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/"/>
+    <id>https://oybox.github.io/2021/08/24/Spring%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/</id>
+    <published>2021-08-24T09:59:01.854Z</published>
+    <updated>2021-08-24T09:59:02.015Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Spring工厂方法"><a href="#Spring工厂方法" class="headerlink" title="Spring工厂方法"></a>Spring工厂方法</h1><p>IoC通过工厂模式创建bean有两种方式：</p><ul><li>⭐静态工厂方法</li><li>⭐实例工厂方法<br>静态工厂方法不需要实例化，而实例化工厂需要实例化。<h4 id="静态工厂方法"><a href="#静态工厂方法" class="headerlink" title="静态工厂方法"></a>静态工厂方法</h4></li></ul><ol><li>创建Car类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.oyrf.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer num;</span><br><span class="line">    <span class="keyword">private</span> String brand;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>创建静态工厂类、静态工厂<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.oyrf.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer num;</span><br><span class="line">    <span class="keyword">private</span> String brand;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>spring.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 静态工厂 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;car1&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.oyrf.factory.StaticCarFactory&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;getCar&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>factory-method指向静态方法<br>constructor-arg的value属性是调用静态方法传入的参数。</li></ol><h4 id="实例工厂方法"><a href="#实例工厂方法" class="headerlink" title="实例工厂方法"></a>实例工厂方法</h4><ol><li>创建实例工厂类、工厂方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.oyrf.factory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.oyrf.entity.Car;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InstanceCarFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, Car&gt; carMap;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">InstanceCarFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">        carMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        carMap.put(<span class="number">1</span>,<span class="keyword">new</span> Car(<span class="number">1</span>,<span class="string">&quot;奥迪&quot;</span>));</span><br><span class="line">        carMap.put(<span class="number">2</span>,<span class="keyword">new</span> Car(<span class="number">1</span>,<span class="string">&quot;奥拓&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Car <span class="title">getCar</span><span class="params">(Integer num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> carMap.get(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>spring.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 实例工厂 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;instanceCarFactory&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.oyrf.factory.InstanceCarFactory&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过实例工厂获取Car --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;car2&quot;</span> <span class="attr">factory-bean</span>=<span class="string">&quot;instanceCarFactory&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;getCar&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">constructor-arg</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>⭐区别：</li></ol><ul><li>静态工厂方法创建Car对象，不需要实例化工厂对象，因为静态工厂的静态方法，不需要创建对象即可调用，spring.xml中只需要配置一个bean，即最终的结果Car即可。</li><li>实例工厂方法创建Car对象，需要实例化工厂对象，因为getCar方法是非静态的，就必须通过实例化对象才能调用，所以就必须要创建工厂对象，spring.xml中需要配置两个bean，一个是工厂bean，一个是Car bean。</li><li>spring.xml中，class+factory-method的形式是直接调用类中的工厂方法。</li><li>spring.xml中factory-bean+factory-method的形式则是调用工厂bean中的工厂方法，就必须先创建工厂bean。（依赖关系，depends-on省略掉了，自己也可以加）。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Spring工厂方法&quot;&gt;&lt;a href=&quot;#Spring工厂方法&quot; class=&quot;headerlink&quot; title=&quot;Spring工厂方法&quot;&gt;&lt;/a&gt;Spring工厂方法&lt;/h1&gt;&lt;p&gt;IoC通过工厂模式创建bean有两种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;⭐静态</summary>
+      
+    
+    
+    
+    <category term="Spring" scheme="https://oybox.github.io/categories/Spring/"/>
+    
+    
+    <category term="笔记" scheme="https://oybox.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring 进阶</title>
