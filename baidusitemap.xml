@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://oybox.github.io/2021/08/28/SpringIoc%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2021-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://oybox.github.io/2021/08/28/Spring%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2021-08-28</lastmod>
+  </url>
+  <url>
     <loc>https://oybox.github.io/2021/08/24/Spring%20IoC%E8%87%AA%E5%8A%A8%E8%A3%85%E8%BD%BDautowire/</loc>
-    <lastmod>2021-08-24</lastmod>
+    <lastmod>2021-08-28</lastmod>
   </url>
   <url>
     <loc>https://oybox.github.io/2021/08/24/Spring%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/</loc>
