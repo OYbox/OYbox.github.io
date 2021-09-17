@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://oybox.github.io/2021/09/17/Spring%20MVC_3/</loc>
+    <lastmod>2021-09-17</lastmod>
+  </url>
+  <url>
     <loc>https://oybox.github.io/2021/09/15/Spring%20MVC_2/</loc>
     <lastmod>2021-09-16</lastmod>
   </url>
