@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://oybox.github.io/2021/09/27/SSM%20%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/</loc>
+    
+    <lastmod>2021-09-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/2021/09/27/Spring%20MVC_5/</loc>
+    
+    <lastmod>2021-09-27</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://oybox.github.io/2021/09/24/Spring%20MVC_4/</loc>
     
     <lastmod>2021-09-24</lastmod>
@@ -207,7 +221,7 @@
 
   <url>
     <loc>https://oybox.github.io/</loc>
-    <lastmod>2021-09-24</lastmod>
+    <lastmod>2021-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -215,7 +229,7 @@
   
   <url>
     <loc>https://oybox.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2021-09-24</lastmod>
+    <lastmod>2021-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -224,28 +238,35 @@
   
   <url>
     <loc>https://oybox.github.io/categories/JavaSE/</loc>
-    <lastmod>2021-09-24</lastmod>
+    <lastmod>2021-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/MyBatis/</loc>
-    <lastmod>2021-09-24</lastmod>
+    <lastmod>2021-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/Spring/</loc>
-    <lastmod>2021-09-24</lastmod>
+    <lastmod>2021-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/SpringMVC/</loc>
-    <lastmod>2021-09-24</lastmod>
+    <lastmod>2021-09-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/categories/SSM/</loc>
+    <lastmod>2021-09-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
