@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Spring Boot_2 | OYbox的技术博客</title>
+  <meta name="description" content="实际应⽤JSTL  pom.xml123456789&lt;dependency&gt; &lt;groupId&gt;jstl&lt;&#x2F;groupId&gt; &lt;artifactId&gt;jstl&lt;&#x2F;artifactId&gt; &lt;version&gt;1.2&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt; &lt;dependency&gt; &lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot_2">
+<meta property="og:url" content="https://oybox.github.io/2021/10/11/Spring%20Boot_2/index.html">
+<meta property="og:site_name" content="OYBox的个人博客">
+<meta property="og:description" content="实际应⽤JSTL  pom.xml123456789&lt;dependency&gt; &lt;groupId&gt;jstl&lt;&#x2F;groupId&gt; &lt;artifactId&gt;jstl&lt;&#x2F;artifactId&gt; &lt;version&gt;1.2&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt; &lt;dependency&gt; &lt;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-11T15:55:07.806Z">
+<meta property="article:modified_time" content="2021-10-11T15:46:04.176Z">
+<meta property="article:author" content="OYBox">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://oybox.github.io/2021/10/11/Spring%20Boot_2/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="OYBox的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/OYbox" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">OYbox-日峰</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> FoShan, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/OYbox" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/OYbox" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Boot/">Spring Boot</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a><span class="tag-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">笔记</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">19</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Spring-Boot/">Spring Boot</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/12/Spring%20Boot_4/" class="title">Spring Boot_4</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-11T16:00:10.690Z" itemprop="datePublished">2021-10-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Spring-Boot/">Spring Boot</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/10/11/Spring%20Boot_2/" class="title">Spring Boot_2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-10-11T15:55:07.806Z" itemprop="datePublished">2021-10-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Spring-Boot/">Spring Boot</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/09/28/Spring%20Boot_1/" class="title">Spring Boot_1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-09-28T11:42:23.560Z" itemprop="datePublished">2021-09-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SSM/">SSM</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/09/27/SSM%20%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/" class="title">SSM 框架整合</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-09-27T09:16:44.274Z" itemprop="datePublished">2021-09-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/09/27/Spring%20MVC_5/" class="title">SpringMVC_5</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-09-27T09:03:05.165Z" itemprop="datePublished">2021-09-27</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Spring Boot_2" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Boot_2
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/10/11/Spring%20Boot_2/" class="article-date">
+	  <time datetime="2021-10-11T15:55:07.806Z" itemprop="datePublished">2021-10-11</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Spring-Boot/">Spring Boot</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/10/11/Spring%20Boot_2/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="实际应⽤"><a href="#实际应⽤" class="headerlink" title="实际应⽤"></a>实际应⽤</h1><p>JSTL</p>
+<ol>
+<li>pom.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+Lombok 的功能是简化实体类代码的编写⼯作，常⽤的⽅法 getter、setter、toString 等⽅法都可以由Lombok ⾃动⽣成，开发者不需要⾃⼰⼿动编写，Lombok 的使⽤需要安装插件。</li>
+<li>创建实体类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.entity;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Integer id;</span><br><span class="line"> <span class="keyword">private</span> String name; &#125;</span><br></pre></td></tr></table></figure></li>
+<li>Handler 中创建业务⽅法，返回 User 对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.controller;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.User;</span><br><span class="line"><span class="keyword">import</span> com.southwind.service.UserService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserHandler</span> </span>&#123;</span><br><span class="line"> <span class="meta">@Autowired</span></span><br><span class="line"> <span class="keyword">private</span> UserService userService;</span><br><span class="line"> <span class="meta">@GetMapping(&quot;/findAll&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">findAll</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;index&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;list&quot;</span>,userService.findAll());</span><br><span class="line"> <span class="keyword">return</span> modelAndView;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@GetMapping(&quot;findById/&#123;id&#125;&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">findById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id)</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;update&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;user&quot;</span>,userService.findById(id));</span><br><span class="line"> <span class="keyword">return</span> modelAndView;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@PostMapping(&quot;/save&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line"> userService.save(user);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;redirect:/user/findAll&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@GetMapping(&quot;/deleteById/&#123;id&#125;&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">deleteById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id)</span></span>&#123;</span><br><span class="line"> userService.deleteById(id);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;redirect:/user/findAll&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@PostMapping(&quot;/update&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">update</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line"> userService.update(user);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;redirect:/user/findAll&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Service<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.service;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.User;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> Collection&lt;User&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.service.impl;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.User;</span><br><span class="line"><span class="keyword">import</span> com.southwind.repository.UserRepository;</span><br><span class="line"><span class="keyword">import</span> com.southwind.service.UserService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"> <span class="meta">@Autowired</span></span><br><span class="line"> <span class="keyword">private</span> UserRepository userRepository;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> Collection&lt;User&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> userRepository.findAll();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> userRepository.findById(id);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line"> userRepository.save(user);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line"> userRepository.deleteById(id);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line"> userRepository.update(user);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Repository<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.repository;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.User;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> Collection&lt;User&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.repository.impl;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.User;</span><br><span class="line"><span class="keyword">import</span> com.southwind.repository.UserRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserRepositoryImpl</span> <span class="keyword">implements</span> <span class="title">UserRepository</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;Integer,User&gt; map;</span><br><span class="line"> <span class="keyword">static</span> &#123;</span><br><span class="line"> map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"> map.put(<span class="number">1</span>,<span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">&quot;张三&quot;</span>));</span><br><span class="line"> map.put(<span class="number">2</span>,<span class="keyword">new</span> User(<span class="number">2</span>,<span class="string">&quot;李四&quot;</span>));</span><br><span class="line"> map.put(<span class="number">3</span>,<span class="keyword">new</span> User(<span class="number">3</span>,<span class="string">&quot;王五&quot;</span>));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> Collection&lt;User&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> map.values();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">return</span> map.get(id);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line"> map.put(user.getId(),user);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line"> map.remove(id);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line"> map.put(user.getId(),user);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>JSP<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">23</span></span><br><span class="line"> Time: <span class="number">18</span>:<span class="number">03</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page isELIgnored=<span class="string">&quot;false&quot;</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;h1&gt;Index&lt;/h1&gt;</span><br><span class="line"> &lt;table&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;th&gt;编号&lt;/th&gt;</span><br><span class="line"> &lt;th&gt;姓名&lt;/th&gt;</span><br><span class="line"> &lt;th&gt;操作&lt;/th&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;c:forEach items=<span class="string">&quot;$&#123;list&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;user&quot;</span>&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;$&#123;user.id&#125;&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;$&#123;user.name&#125;&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;a href=<span class="string">&quot;/user/deleteById/$&#123;user.id&#125;&quot;</span>&gt;删除&lt;/a&gt;</span><br><span class="line"> &lt;a href=<span class="string">&quot;/user/findById/$&#123;user.id&#125;&quot;</span>&gt;修改&lt;/a&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;/c:forEach&gt;</span><br><span class="line"> &lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">24</span></span><br><span class="line"> Time: <span class="number">13</span>:<span class="number">04</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/user/save&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;id&quot;</span>/&gt;&lt;br/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;name&quot;</span>/&gt;&lt;br/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span>/&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line">  Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">24</span></span><br><span class="line"> Time: <span class="number">13</span>:<span class="number">04</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page isELIgnored=<span class="string">&quot;false&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/user/update&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;id&quot;</span> value=<span class="string">&quot;$&#123;user.id&#125;&quot;</span> readonly/&gt;&lt;br/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;name&quot;</span> value=<span class="string">&quot;$&#123;user.name&#125;&quot;</span>/&gt;&lt;br/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span>/&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="Spring-Boot-整合-Thymeleaf"><a href="#Spring-Boot-整合-Thymeleaf" class="headerlink" title="Spring Boot 整合 Thymeleaf"></a>Spring Boot 整合 Thymeleaf</h1>Thymeleaf 是⽬前较为流⾏的视图层技术，Spring Boot 官⽅推荐使⽤ Thymeleaf。<h1 id="什么是-Thymeleaf"><a href="#什么是-Thymeleaf" class="headerlink" title="什么是 Thymeleaf"></a>什么是 Thymeleaf</h1>Thymeleaf 是⼀个⽀持原⽣ THML ⽂件的 Java 模版，可以实现前后端分离的交互⽅式，即视图与业务数据分开响应，它可以直接将服务端返回的数据⽣成 HTML ⽂件，同时也可以处理 XML、JavaScript、CSS 等格式。<br>Thymeleaf 最⼤的特点是既可以直接在浏览器打开（静态⽅式），也可以结合服务端将业务数据填充到HTML 之后动态⽣成的⻚⾯（动态⽅法），Spring Boot ⽀持 Thymeleaf，使⽤起来⾮常⽅便。</li>
+<li>创建 Maven ⼯程，不需要创建 Web ⼯程，pom.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0</span></span></span><br><span class="line"><span class="string"><span class="tag">http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.southwind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springbootthymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>application.yml<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"> <span class="attr">thymeleaf:</span></span><br><span class="line"> <span class="attr">prefix:</span> <span class="string">classpath:/templates/</span> <span class="comment">#模版路径</span></span><br><span class="line"> <span class="attr">suffix:</span> <span class="string">.html</span> <span class="comment">#模版后缀</span></span><br><span class="line"> <span class="attr">servlet:</span></span><br><span class="line"> <span class="attr">content-type:</span> <span class="string">text/html</span> <span class="comment">#设置 Content-type</span></span><br><span class="line"> <span class="attr">encoding:</span> <span class="string">UTF-8</span> <span class="comment">#编码⽅式</span></span><br><span class="line"> <span class="attr">mode:</span> <span class="string">HTML5</span> <span class="comment">#校验 H5 格式</span></span><br><span class="line"> <span class="attr">cache:</span> <span class="literal">false</span> <span class="comment">#关闭缓存，在开发过程中可以⽴即看到⻚⾯修改的结果</span></span><br></pre></td></tr></table></figure></li>
+<li>创建Handler<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/hello&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloHandler</span> </span>&#123;</span><br><span class="line"> <span class="meta">@GetMapping(&quot;/index&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;index&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> modelAndView;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>启动类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> SpringApplication.run(Application.class,args);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>HTML<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span> <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Index<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;name&#125;&quot;</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+如果需要加载后台返回的业务数据，则需要在 HTML ⻚⾯中使⽤ Thymeleaf 模版标签来完成。</li>
+<li>需要引⼊模版标签。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>通过特定的标签完成操作。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;name&#125;&quot;</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+Thymeleaf 模版标签不同于 JSTL，Thymeleaf 模版标签是直接嵌⼊到 HTML 原⽣标签内部。<h1 id="Thymeleaf-常⽤标签"><a href="#Thymeleaf-常⽤标签" class="headerlink" title="Thymeleaf 常⽤标签"></a>Thymeleaf 常⽤标签</h1></li>
+</ol>
+<ul>
+<li>⭐th:text<br>th:text ⽤于⽂本的显示，将业务数据的值填充到 HTML 标签中。</li>
+<li>⭐th:if<br>th:if ⽤于条件判断，对业务数据的值进⾏判断，如果条件成⽴，则显示内容，否则不显示，具体的使⽤如下所示。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/if&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">ifTest</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;score&quot;</span>,<span class="number">90</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;score&gt;=90&#125;&quot;</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">p</span>&gt;</span> <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:if</span>=<span class="string">&quot;$&#123;score&lt;90&#125;&quot;</span>&gt;</span>良好<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>⭐th:unless<br>th:unless 也⽤作条件判断，逻辑与 th:if 恰好相反，如果条件不成⽴则显示，否则不显示。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/unless&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">unlessTest</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;score&quot;</span>,<span class="number">90</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">th:unless</span>=<span class="string">&quot;$&#123;score&gt;=90&#125;&quot;</span>&gt;</span>优秀<span class="tag">&lt;/<span class="name">p</span>&gt;</span> <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:unless</span>=<span class="string">&quot;$&#123;score&lt;90&#125;&quot;</span>&gt;</span>良好<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>⭐th:switch th:case<br>th:switch th:case 两个结合起来使⽤，⽤作多条件等值判断，逻辑与 Java 中的 switch-case ⼀致，当switch 中的业务数据等于某个 case 时，就显示该 case 对应的内容。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/switch&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">switchTest</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;studentId&quot;</span>,<span class="number">1</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:switch</span>=<span class="string">&quot;$&#123;studentId&#125;&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;1&quot;</span>&gt;</span>张三<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;2&quot;</span>&gt;</span>李四<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span> <span class="attr">th:case</span>=<span class="string">&quot;3&quot;</span>&gt;</span>王五<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>⭐th:action<br>⽤来指定请求的 URL，相当于 form 表单中的 action 属性<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">th:action</span>=<span class="string">&quot;@&#123;/hello/login&#125;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/redirect/&#123;url&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">redirect</span><span class="params">(<span class="meta">@PathVariable(&quot;url&quot;)</span> String url, Model model)</span></span>&#123;</span><br><span class="line"> model.addAttribute(<span class="string">&quot;url&quot;</span>,<span class="string">&quot;/hello/login&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> url; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">th:action</span>=<span class="string">&quot;$&#123;url&#125;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+如果 action 的值直接写在 HTML 中，则需要使⽤ @{}，如果是从后台传来的数据，则使⽤${}。</li>
+<li>⭐th:each<br>⽤来遍历集合<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.entity;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Integer id;</span><br><span class="line"> <span class="keyword">private</span> String name; &#125;</span><br><span class="line"><span class="meta">@GetMapping(&quot;/each&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">each</span><span class="params">()</span></span>&#123;</span><br><span class="line"> List&lt;User&gt; list = Arrays.asList(</span><br><span class="line"> <span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">&quot;张三&quot;</span>),</span><br><span class="line"> <span class="keyword">new</span> User(<span class="number">2</span>,<span class="string">&quot;李四&quot;</span>),</span><br><span class="line"> <span class="keyword">new</span> User(<span class="number">3</span>,<span class="string">&quot;王五&quot;</span>));</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;list&quot;</span>,list);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">th</span>&gt;</span>编号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">tr</span> <span class="attr">th:each</span>=<span class="string">&quot;user:$&#123;list&#125;&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.id&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">td</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.name&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>⭐th:value<br>用来给标签赋值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/value&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">value</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;value&quot;</span>,<span class="string">&quot;Spring Boot&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;value&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>⭐th:src<br>⽤来引⼊静态资源，相当于 HTML 原⽣标签 img、script 的 src 属性。<br>图⽚，css，js，静态加载的 html 都需要放置在 resources/static ⽂件中</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/src&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">src</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;src&quot;</span>,<span class="string">&quot;/1.png&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">th:src</span>=<span class="string">&quot;$&#123;src&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>⭐th:href<br>⽤作设置超链接的 href<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/href&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">href</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;href&quot;</span>,<span class="string">&quot;https://www.baidu.com&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">th:href</span>=<span class="string">&quot;$&#123;href&#125;&quot;</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>⭐th:selected<br>⽤作给 HTML 元素设置选中，条件成⽴则选中，否则不选中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/select&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">select</span><span class="params">()</span></span>&#123;</span><br><span class="line"> List&lt;User&gt; list = Arrays.asList(</span><br><span class="line"> <span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">&quot;张三&quot;</span>),</span><br><span class="line"> <span class="keyword">new</span> User(<span class="number">2</span>,<span class="string">&quot;李四&quot;</span>),</span><br><span class="line"> <span class="keyword">new</span> User(<span class="number">3</span>,<span class="string">&quot;王五&quot;</span>)</span><br><span class="line"> );</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;list&quot;</span>,list);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;李四&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">option</span></span></span><br><span class="line"><span class="tag"> <span class="attr">th:each</span>=<span class="string">&quot;user:$&#123;list&#125;&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;user.id&#125;&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;user.name&#125;&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">th:selected</span>=<span class="string">&quot;$&#123;user.name == name&#125;&quot;</span></span></span><br><span class="line"><span class="tag"> &gt;</span><span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+结合 th:each 来使⽤，⾸先遍历 list 集合动态创建 option 元素，根据每次遍历出的 user.name 与业务数据中的 name 是否相等来决定是否要选择。</li>
+<li>⭐th:attr<br>给 HTML 标签的任意属性赋值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/attr&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">attr</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;test&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;attr&quot;</span>,<span class="string">&quot;Spring Boot&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> modelAndView; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">th:attr</span>=<span class="string">&quot;value=$&#123;attr&#125;&quot;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">th:value</span>=<span class="string">&quot;$&#123;attr&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://oybox.github.io/2021/10/11/Spring%20Boot_2/" title="Spring Boot_2" target="_blank" rel="external">https://oybox.github.io/2021/10/11/Spring Boot_2/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/OYbox" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/OYbox" target="_blank"><span class="text-dark">OYbox-日峰</span><small class="ml-1x">Programer</small></a></h3>
+        <div>Java程序员</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/10/12/Spring%20Boot_4/" title="Spring Boot_4"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/09/28/Spring%20Boot_1/" title="Spring Boot_1"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/OYbox" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/OYbox" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'K7VRD1W91QK5QPXA1Rm2RCH6-gzGzoHsz',
+    appKey: '7VkpoxLomnDFLMH5RxMP9Uc1',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
