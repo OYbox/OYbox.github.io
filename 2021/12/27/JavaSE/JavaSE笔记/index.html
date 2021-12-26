@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>总结JavaSE笔记 | OYbox的技术博客</title>
+  <meta name="description" content="1.面向过程和面向对象的比较1.1面向过程：侧重的是过程   优点：简单   缺点：代码量大了以后维护性很差 1.2面向对象：侧重的是对象   优点：可扩展性非常强，维护成本低   缺点：新手上手难 1.3造车 画图纸   定义车的属性信息：color、speed、seat….. 定义车的动作：跑   拿着图纸找工厂生产车 1.4总结面向对象的世界里，类就是图纸，属性就是这一类事物拥有的共同属性，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="总结JavaSE笔记">
+<meta property="og:url" content="https://oybox.github.io/2021/12/27/JavaSE/JavaSE%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="OYBox的个人博客">
+<meta property="og:description" content="1.面向过程和面向对象的比较1.1面向过程：侧重的是过程   优点：简单   缺点：代码量大了以后维护性很差 1.2面向对象：侧重的是对象   优点：可扩展性非常强，维护成本低   缺点：新手上手难 1.3造车 画图纸   定义车的属性信息：color、speed、seat….. 定义车的动作：跑   拿着图纸找工厂生产车 1.4总结面向对象的世界里，类就是图纸，属性就是这一类事物拥有的共同属性，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-26T16:35:04.300Z">
+<meta property="article:modified_time" content="2021-12-26T16:35:47.654Z">
+<meta property="article:author" content="OYBox">
+<meta property="article:tag" content="归纳总结">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://oybox.github.io/2021/12/27/JavaSE/JavaSE%E7%AC%94%E8%AE%B0/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="OYBox的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/OYbox" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">OYbox-日峰</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> FoShan, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/OYbox" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/OYbox" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Boot/">Spring Boot</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93/" rel="tag">归纳总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" rel="tag">总结归纳</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a><span class="tag-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93/" style="font-size: 13px;">归纳总结</a> <a href="/tags/%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/" style="font-size: 13px;">总结归纳</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 14px;">笔记</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JavaSE/">JavaSE</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/27/JavaSE/JavaSE%E7%AC%94%E8%AE%B0/" class="title">总结JavaSE笔记</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T16:35:04.300Z" itemprop="datePublished">2021-12-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%94%A824%E5%BC%A0%E5%9B%BE%E4%BB%8B%E7%BB%8D%E4%B9%9D%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="title">用24张图介绍九大数据结构</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T16:15:39.169Z" itemprop="datePublished">2021-12-27</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_5/" class="title">SpringMVC_5</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.471Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_4/" class="title">SpringMVC_4</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.469Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_3/" class="title">SpringMVC_3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.466Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-JavaSE/JavaSE笔记" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      总结JavaSE笔记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/27/JavaSE/JavaSE%E7%AC%94%E8%AE%B0/" class="article-date">
+	  <time datetime="2021-12-26T16:35:04.300Z" itemprop="datePublished">2021-12-27</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/JavaSE/">JavaSE</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93/" rel="tag">归纳总结</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/27/JavaSE/JavaSE%E7%AC%94%E8%AE%B0/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="1-面向过程和面向对象的比较"><a href="#1-面向过程和面向对象的比较" class="headerlink" title="1.面向过程和面向对象的比较"></a><font color=red>1.面向过程和面向对象的比较</font></h1><h3 id="1-1面向过程：侧重的是过程"><a href="#1-1面向过程：侧重的是过程" class="headerlink" title="1.1面向过程：侧重的是过程"></a>1.1面向过程：侧重的是过程</h3><p>   优点：简单<br>   缺点：代码量大了以后维护性很差</p>
+<h3 id="1-2面向对象：侧重的是对象"><a href="#1-2面向对象：侧重的是对象" class="headerlink" title="1.2面向对象：侧重的是对象"></a>1.2面向对象：侧重的是对象</h3><p>   优点：可扩展性非常强，维护成本低<br>   缺点：新手上手难</p>
+<h3 id="1-3造车"><a href="#1-3造车" class="headerlink" title="1.3造车"></a>1.3造车</h3><ol>
+<li>画图纸</li>
+</ol>
+<ul>
+<li>定义车的属性信息：color、speed、seat…..</li>
+<li>定义车的动作：跑</li>
+</ul>
+<ol start="2">
+<li><p>拿着图纸找工厂生产车</p>
+<h4 id="1-4总结"><a href="#1-4总结" class="headerlink" title="1.4总结"></a>1.4总结</h4><p>面向对象的世界里，类就是图纸，属性就是这一类事物拥有的共同属性，动作就是这一类事物共同执行的功能。而对象就是使用类创建的具体某一个东西。对象能干什么，完全取决于类是如何定义的。</p>
+<h1 id="2-构造方法"><a href="#2-构造方法" class="headerlink" title="2.构造方法"></a><font color=red>2.构造方法</font></h1><p>定义：在创建对象的时候，自动调用的方法</p>
+<h3 id="2-1语法如下"><a href="#2-1语法如下" class="headerlink" title="2.1语法如下"></a>2.1语法如下</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> 类名(参数)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>没有返回值</li>
+<li>在我们new的时候，自动调用构造方法</li>
+</ol>
+<p>⭐. Java会自动的赠送给每一个类一个无参构造<br>⭐. 作用是在创建对象的时候，给对象设置属性信息</p>
+<h1 id="3-重载"><a href="#3-重载" class="headerlink" title="3.重载"></a><font color=red>3.重载</font></h1><p>定义：重载时改变参数的个数<br>作用：构造方法也是方法，也可以进行重载，重载可以使我们有更多的方式去创建对象<br>⭐. this还可以调用当前类中其他的构造方法</p>
+<h1 id="4-Static静态"><a href="#4-Static静态" class="headerlink" title="4.Static静态"></a><font color=red>4.Static静态</font></h1><p>静态的内容在内存中是保留一份的，并且各个对象之间进行共享。</p>
+<h3 id="4-1静态的特点"><a href="#4-1静态的特点" class="headerlink" title="4.1静态的特点"></a>4.1静态的特点</h3><p>1.数据共享<br>2.属于类的，并不属于对象<br>3.优先于对象产生的</p>
+<h3 id="4-2创建对象的过程"><a href="#4-2创建对象的过程" class="headerlink" title="4.2创建对象的过程"></a>4.2创建对象的过程</h3><p>1.静态构造器<br>2.通用构造器<br>3.构造方法<br>4.创建对象<br>⭐. 这就证明创建对象钱就可以访问静态内容，由于创建对象的过程是在静态内容加载之后完成之后，因此在静态方法和静态块离不能用this。</p>
+<h1 id="5-包和打包"><a href="#5-包和打包" class="headerlink" title="5.包和打包"></a><font color=red>5.包和打包</font></h1><h3 id="5-1包"><a href="#5-1包" class="headerlink" title="5.1包"></a>5.1包</h3><p>其实本质上就是文件夹，在代码中需要写package 包名；</p>
+<h3 id="5-2导包"><a href="#5-2导包" class="headerlink" title="5.2导包"></a>5.2导包</h3><p>语法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 包+类</span><br></pre></td></tr></table></figure>
+<h3 id="5-3不需要导包"><a href="#5-3不需要导包" class="headerlink" title="5.3不需要导包"></a>5.3不需要导包</h3><ol>
+<li>在自己包中</li>
+<li>java.lang包下的所有内容不用导包：</li>
+</ol>
+<ul>
+<li>String</li>
+<li>System.out<h1 id="6-访问权限"><a href="#6-访问权限" class="headerlink" title="6.访问权限"></a><font color=red>6.访问权限</font></h1></li>
+</ul>
+<ol>
+<li>public  公共的，所有人都可以访问</li>
+<li>default 包访问权限，在自己包内可以随意访问</li>
+<li>private 私有的，在自己的类可随意访问<br>⭐. 我们使用最多的是private和public<h3 id="6-1Setter和Getter"><a href="#6-1Setter和Getter" class="headerlink" title="6.1Setter和Getter"></a>6.1Setter和Getter</h3>成员变量一般用private声明，保护成员变量不被胡乱的赋值，这就是封装。<br>setter：主要给成员变量赋值，做一定保护。<br>getter：从成员变量中获取数据<h1 id="7-继承"><a href="#7-继承" class="headerlink" title="7.继承"></a><font color=red>7.继承</font></h1>定义：子类可以自动拥有父类中除了私有内容外的其他所有内容。<br>⭐. 当出现X是一种Y的时候，X可以继承Y，例如卡车是一种车。<h3 id="7-1语法如下"><a href="#7-1语法如下" class="headerlink" title="7.1语法如下"></a>7.1语法如下</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类 <span class="keyword">extends</span> 父类</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-2继承的作用"><a href="#7-2继承的作用" class="headerlink" title="7.2继承的作用"></a>7.2继承的作用</h3></li>
+</ol>
+</li>
+<li><p>简化代码的开发</p>
+</li>
+<li><p>子类对父类进行扩展</p>
+<h1 id="8-this与super"><a href="#8-this与super" class="headerlink" title="8.this与super"></a><font color=red>8.this与super</font></h1><h3 id="8-1关于this与super的作用"><a href="#8-1关于this与super的作用" class="headerlink" title="8.1关于this与super的作用"></a>8.1关于this与super的作用</h3><p>this指的是当前类的对象<br>this可以在方法内部获取到对象中的属性信息<br>this还可以区分局部变量与成员变量<br>super表示父类的内容<br>⭐. 用super和this来区分父类和子类中重名的内容<br>⭐. 创建对象的过程：先创建父类对象，然后创建子类对象</p>
+</li>
+</ol>
+<h3 id="8-2小总结"><a href="#8-2小总结" class="headerlink" title="8.2小总结"></a>8.2小总结</h3><ol>
+<li>super可以获取到父类中的内容</li>
+<li>可以调用父类中的构造方法，必须写在子类构造方法的第一行，如果父类的构造方法无参的，则使用super();。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 子类 <span class="keyword">extends</span> 父类</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> 子类()&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果父类没有无参构造，则需要加参数，super(参数);。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 子类 <span class="keyword">extends</span> 父类</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> 子类()&#123;</span><br><span class="line">		<span class="keyword">super</span>(参数);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="9-方法的重写"><a href="#9-方法的重写" class="headerlink" title="9.方法的重写"></a><font color=red>9.方法的重写</font></h1>重写的定义：子类对父类中提供的方法进行重新定义<br>语法：子类和父类中的方法的声明完全一致。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SayHi</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Hi&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SayHi</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="10-多态"><a href="#10-多态" class="headerlink" title="10.多态"></a><font color=red>10.多态</font></h1><h3 id="10-1定义与作用"><a href="#10-1定义与作用" class="headerlink" title="10.1定义与作用"></a>10.1定义与作用</h3>定义：继承关系下，同一个对象拥有多种形态。例如猫继承动物，猫是动物的一种。<br>作用：把不同的数据类型进行统一，让程序具有超强的扩展性。<h3 id="10-2小知识点："><a href="#10-2小知识点：" class="headerlink" title="10.2小知识点："></a>10.2小知识点：</h3></li>
+</ol>
+<ul>
+<li>⭐.把子类的对象赋值给父类的变量，为向上转型。缺点：屏蔽掉子类中特有方法</li>
+<li>⭐.把父类的变量转化为子类的变量，为向下转型。缺点：有可能有风险，java要求必须写强制类型转换。转换后又可以用回子类的方法，例如动物是猫的父类：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Animal animal = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat cat = (Cat)animal;</span><br></pre></td></tr></table></figure>
+<h1 id="11-final关键字"><a href="#11-final关键字" class="headerlink" title="11.final关键字"></a><font color=red>11.final关键字</font></h1><h3 id="11-1final的用法"><a href="#11-1final的用法" class="headerlink" title="11.1final的用法"></a>11.1final的用法</h3></li>
+</ul>
+<ol>
+<li>被final修饰的变量不可以被改变，又被称为常量。</li>
+<li>被final修饰的方法不可以被重写。</li>
+<li>被final修饰的类不可以被继承。<h3 id="11-2总结"><a href="#11-2总结" class="headerlink" title="11.2总结"></a>11.2总结</h3>简单一句就是不可变。<h1 id="12-抽象"><a href="#12-抽象" class="headerlink" title="12.抽象"></a><font color=red>12.抽象</font></h1><h3 id="12-1抽象的理解和使用"><a href="#12-1抽象的理解和使用" class="headerlink" title="12.1抽象的理解和使用"></a>12.1抽象的理解和使用</h3>抽象指的是现实中不存在的东西。<br>在java中，只声明，不实现。<br>⭐.抽象方法：使用abstract来修饰，不可以有方法体，直接用分号结束即可。<br>⭐.抽象类：如果一个类中油抽象方法，这个类必须是一个抽象类。<h3 id="12-2抽象类的特点"><a href="#12-2抽象类的特点" class="headerlink" title="12.2抽象类的特点"></a>12.2抽象类的特点</h3></li>
+<li>抽象类不可以创建对象。</li>
+<li>抽象类的子类必须重写父类中的抽象方法，否则，子类必须也是抽象类。<br>⭐.通过抽象类可以强制要求子类中必须有哪些方法。<br>⭐.抽象类其实有多态性，起到规范作用。</li>
+<li>抽象类中不一定全是抽象方法，也有正常的方法。<h1 id="13-接口"><a href="#13-接口" class="headerlink" title="13.接口"></a><font color=red>13.接口</font></h1><h3 id="13-1接口的定义"><a href="#13-1接口的定义" class="headerlink" title="13.1接口的定义"></a>13.1接口的定义</h3></li>
+</ol>
+<ul>
+<li>接口实际上是一种特殊的类。</li>
+<li>接口中所有的方法都是抽象方法。</li>
+<li>接口使用interface来声明。<br> ⭐.类只能单继承，接口可以多实现。<br> ⭐.接口同样具有多态性。<br> ⭐⭐.接口可以把很多不相干的内容进行整合。<h3 id="13-2接口的特点"><a href="#13-2接口的特点" class="headerlink" title="13.2接口的特点"></a>13.2接口的特点</h3></li>
+</ul>
+<ol>
+<li>接口中所有方法是抽象方法，都是公开的。</li>
+<li>接口中所有的变量都是全属静态常量。<h1 id="14-Object类"><a href="#14-Object类" class="headerlink" title="14.Object类"></a><font color=red>14.Object类</font></h1>万事万物皆为对象。<br>⭐.在java中所有的类都要继承Object类。<br>Object是一个类，所有类的根。<br>⭐⭐.我们写的类即使不写继承关系，那么默认也会继承Object。<h1 id="15-和equals-方法"><a href="#15-和equals-方法" class="headerlink" title="15.==和equals()方法"></a><font color=red>15.==和equals()方法</font></h1>理论上==和equals()方法是一样的，但equals可以自己重写。<br>⭐.字符串一定要用equals()方法来判断，因为可以判断内容。<h1 id="16-toString-方法和instanceof-方法"><a href="#16-toString-方法和instanceof-方法" class="headerlink" title="16.toString()方法和instanceof()方法"></a><font color=red>16.toString()方法和instanceof()方法</font></h1>toString()方法是一个对象的字符串的表现形式。<br>⭐.java官方推荐重写，默认那个太丑。<br>instanceof()方法判断XX对象是否为XX类型。<br>语法为：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对象 <span class="keyword">instanceof</span> 类型</span><br></pre></td></tr></table></figure>
+<h1 id="17-异常"><a href="#17-异常" class="headerlink" title="17.异常"></a><font color=red>17.异常</font></h1><h3 id="17-1异常的错误类型"><a href="#17-1异常的错误类型" class="headerlink" title="17.1异常的错误类型"></a>17.1异常的错误类型</h3></li>
+<li>编译时的异常</li>
+<li>运行时的异常<h3 id="17-2-异常的分类"><a href="#17-2-异常的分类" class="headerlink" title="17.2 异常的分类"></a>17.2 异常的分类</h3></li>
+<li>RuntimeException：运行时异常，一般不会手动处理，出了问题再处理。</li>
+<li>其他Exception：必须经过手动处理。</li>
+<li>Error：一般指系统级错误。<h3 id="17-3异常的处理-try—catch"><a href="#17-3异常的处理-try—catch" class="headerlink" title="17.3异常的处理 try—catch"></a>17.3异常的处理 try—catch</h3>语法：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	尝试执行的代码</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">	处理异常代码</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span>&#123;</span><br><span class="line">	最终的，关掉程序</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+⭐.throws和throw尽量少用，少点往上抛。</li>
+</ol>
+<h1 id="18-泛型"><a href="#18-泛型" class="headerlink" title="18.泛型"></a><font color=red>18.泛型</font></h1><h3 id="18-1泛型的背景"><a href="#18-1泛型的背景" class="headerlink" title="18.1泛型的背景"></a>18.1泛型的背景</h3><p>   java推出泛型以前，程序员可以构建一个元素类型为Object的集合，该集合能够存储任意对象，而在使用该集合的过程中，需要程序员明确和知道存储每个元素的数据类型，否则很容易引发ClassCastException异常.。</p>
+<h3 id="18-2泛型的作用"><a href="#18-2泛型的作用" class="headerlink" title="18.2泛型的作用"></a>18.2泛型的作用</h3><ol>
+<li>编译期间检查类型。</li>
+<li>减少数据类型的转换。<br>⭐.泛型的本质就是参数化类型，也就是所操作的数据类型指定为一个参数。<br>好处：</li>
+<li>类型安全。</li>
+<li>消除了强制类型转换。<h3 id="18-3注意事项"><a href="#18-3注意事项" class="headerlink" title="18.3注意事项"></a>18.3注意事项</h3></li>
+<li>泛型类，如果没有指定具体的数据类型，此时，操作类型为Object。</li>
+<li>泛型类的类型参数只能是类类型，不能实基本数据类型。</li>
+<li>泛型类型的逻辑上可以看成是多个不同的类型，但实际上是相同的类型。（内存地址相同）<h3 id="18-4泛型类接口"><a href="#18-4泛型类接口" class="headerlink" title="18.4泛型类接口"></a>18.4泛型类接口</h3>⭐.从泛型类派生于泛型类。</li>
+<li>子类也是泛型类，子类和父类的泛型类型要一致，语法如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildGeneric</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Generic</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>子类不是泛型类，父类要明确泛型的数据类型，语法如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChildGeneric</span> <span class="keyword">extends</span> <span class="title">Generic</span>&lt;<span class="title">String</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="18-5泛型方法的总结"><a href="#18-5泛型方法的总结" class="headerlink" title="18.5泛型方法的总结"></a>18.5泛型方法的总结</h3></li>
+<li>泛型方法能使方法独立于类而产生变化。</li>
+<li>如果static方法要使用泛型能力，就必须使期成为泛型方法。<h3 id="18-6什么是类型通配符"><a href="#18-6什么是类型通配符" class="headerlink" title="18.6什么是类型通配符"></a>18.6什么是类型通配符</h3>类型通配符一般是使用”?”代替具体的类型实参，所以，类型通配符是类型实参，而不是类型形参。<h3 id="18-7类型通配符的上限"><a href="#18-7类型通配符的上限" class="headerlink" title="18.7类型通配符的上限"></a>18.7类型通配符的上限</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类/接口 &lt;? extends 实参类型&gt;</span><br></pre></td></tr></table></figure>
+要求改泛型的类型只能是实参类型，或是实参类型的子类型<h3 id="18-8类型通配符的下限"><a href="#18-8类型通配符的下限" class="headerlink" title="18.8类型通配符的下限"></a>18.8类型通配符的下限</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类/接口 &lt;? <span class="keyword">super</span> 实参类型&gt;</span><br></pre></td></tr></table></figure>
+要求该泛型的类型，只能是实参类型，或实参类型的父类型。<h3 id="18-9泛型数组的创建"><a href="#18-9泛型数组的创建" class="headerlink" title="18.9泛型数组的创建"></a>18.9泛型数组的创建</h3>可以通过java.lang.reflect.Array的newInstance(Class<T>,int)创建T[]数组。</li>
+</ol>
+<h1 id="19-Java集合"><a href="#19-Java集合" class="headerlink" title="19.Java集合"></a><font color=red>19.Java集合</font></h1><h3 id="19-1集合的概念"><a href="#19-1集合的概念" class="headerlink" title="19.1集合的概念"></a>19.1集合的概念</h3><p>   对象的容器，实现了对对象常用的操作，类似数组功能，数据结构中的链表和图。</p>
+<h3 id="19-2和数组的分别"><a href="#19-2和数组的分别" class="headerlink" title="19.2和数组的分别"></a>19.2和数组的分别</h3><ol>
+<li>数组长度固定。集合长度不固定。</li>
+<li>数组可以存储基本类型和引用类型，集合只能存储引用类型。<h3 id="19-3List和Set"><a href="#19-3List和Set" class="headerlink" title="19.3List和Set"></a>19.3List和Set</h3></li>
+</ol>
+<ul>
+<li>List有序、有下标、元素可以重复。</li>
+<li>Set无序、无下标、元素不可重复。<h3 id="19-4Map接口的特点"><a href="#19-4Map接口的特点" class="headerlink" title="19.4Map接口的特点"></a>19.4Map接口的特点</h3>用于存储任意键值对。</li>
+<li>键：无序、无下标、不允许重复（唯一）。</li>
+<li>值：无序、无下标、允许重复。<h1 id="20-文件IO"><a href="#20-文件IO" class="headerlink" title="20.文件IO"></a><font color=red>20.文件IO</font></h1>流的概念：内存与存储设备之间传输数据的通路<h3 id="20-1分类"><a href="#20-1分类" class="headerlink" title="20.1分类"></a>20.1分类</h3>按方向：</li>
+<li>输入流：将存储设备中的内容读入到内存中。</li>
+<li>输出流：将内存中的内容写入到存储设备中。<br> 按单位：</li>
+<li> 字节流：一字节为单位，可以读所有数据。</li>
+<li>字符流：一字符为单位，可以读文本数据。<br> 其他：</li>
+<li>节点流：具有实际传输数据的读写功能。</li>
+<li>过滤流：在节点的基础上增强功能。</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://oybox.github.io/2021/12/27/JavaSE/JavaSE%E7%AC%94%E8%AE%B0/" title="总结JavaSE笔记" target="_blank" rel="external">https://oybox.github.io/2021/12/27/JavaSE/JavaSE笔记/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/OYbox" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/OYbox" target="_blank"><span class="text-dark">OYbox-日峰</span><small class="ml-1x">Programer</small></a></h3>
+        <div>Java程序员</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/12/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%94%A824%E5%BC%A0%E5%9B%BE%E4%BB%8B%E7%BB%8D%E4%B9%9D%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="用24张图介绍九大数据结构"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/OYbox" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/OYbox" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'K7VRD1W91QK5QPXA1Rm2RCH6-gzGzoHsz',
+    appKey: '7VkpoxLomnDFLMH5RxMP9Uc1',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
