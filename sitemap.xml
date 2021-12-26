@@ -255,6 +255,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://oybox.github.io/tags/%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/</loc>
+    <lastmod>2021-12-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -287,6 +294,13 @@
   
   <url>
     <loc>https://oybox.github.io/categories/Spring-Boot/</loc>
+    <lastmod>2021-12-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2021-12-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
