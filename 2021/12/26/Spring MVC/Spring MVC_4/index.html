@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>SpringMVC_4 | OYbox的技术博客</title>
+  <meta name="description" content="传统的 Web 开发中，from 只⽀持 GET 和 POST，不⽀持 DELETE 和 PUT，如何解决？通过添加HiddenHttpMethodFilter 过滤器，可以将 POST 请求转为 PUT 或者 DELETE。 HiddenHttpMethodFilter 的实现原理HiddenHttpMethodFilter 检测请求参数重是否包含 _method 参数，如果包含则取出它的值，并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC_4">
+<meta property="og:url" content="https://oybox.github.io/2021/12/26/Spring%20MVC/Spring%20MVC_4/index.html">
+<meta property="og:site_name" content="OYBox的个人博客">
+<meta property="og:description" content="传统的 Web 开发中，from 只⽀持 GET 和 POST，不⽀持 DELETE 和 PUT，如何解决？通过添加HiddenHttpMethodFilter 过滤器，可以将 POST 请求转为 PUT 或者 DELETE。 HiddenHttpMethodFilter 的实现原理HiddenHttpMethodFilter 检测请求参数重是否包含 _method 参数，如果包含则取出它的值，并">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/OYbox/OYbox.github.io/master/img/MVC_5.png">
+<meta property="article:published_time" content="2021-12-26T15:48:21.469Z">
+<meta property="article:modified_time" content="2021-09-24T07:58:10.497Z">
+<meta property="article:author" content="OYBox">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OYbox/OYbox.github.io/master/img/MVC_5.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://oybox.github.io/2021/12/26/Spring%20MVC/Spring%20MVC_4/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="OYBox的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/OYbox" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">OYbox-日峰</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Programer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> FoShan, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/OYbox" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/OYbox" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MyBatis/">MyBatis</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSM/">SSM</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring/">Spring</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Boot/">Spring Boot</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringMVC/">SpringMVC</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a><span class="tag-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 13px;">笔记</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">十二月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">十月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">九月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">八月 2021</a><span class="archive-list-count">17</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_5/" class="title">SpringMVC_5</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.471Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_4/" class="title">SpringMVC_4</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.469Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_3/" class="title">SpringMVC_3</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.466Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_2/" class="title">SpringMVC_2</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.463Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/SpringMVC/">SpringMVC</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_1/" class="title">SpringMVC_1</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-12-26T15:48:21.460Z" itemprop="datePublished">2021-12-26</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Spring MVC/Spring MVC_4" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringMVC_4
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/12/26/Spring%20MVC/Spring%20MVC_4/" class="article-date">
+	  <time datetime="2021-12-26T15:48:21.469Z" itemprop="datePublished">2021-12-26</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/SpringMVC/">SpringMVC</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_4/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>传统的 Web 开发中，from 只⽀持 GET 和 POST，不⽀持 DELETE 和 PUT，如何解决？通过添加HiddenHttpMethodFilter 过滤器，可以将 POST 请求转为 PUT 或者 DELETE。</p>
+<h1 id="HiddenHttpMethodFilter-的实现原理"><a href="#HiddenHttpMethodFilter-的实现原理" class="headerlink" title="HiddenHttpMethodFilter 的实现原理"></a>HiddenHttpMethodFilter 的实现原理</h1><p>HiddenHttpMethodFilter 检测请求参数重是否包含 _method 参数，如果包含则取出它的值，并且判断请求类型之后完成请求类型的转换，然后继续传递。<br><img src="https://raw.githubusercontent.com/OYbox/OYbox.github.io/master/img/MVC_5.png" alt="MVC_1"><br>实现步骤</p>
+<ol>
+<li>在 form 表单中添加隐藏域标签，name 为 _method，value 为 DELETE/PUT。<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">11</span></span><br><span class="line"> Time: <span class="number">11</span>:<span class="number">53</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/rest/update&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;_method&quot;</span> value=<span class="string">&quot;PUT&quot;</span>/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;提交&quot;</span>/&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li>
+<li>web.xml 中配置 HiddenHttpMethodFilter。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HiddenHttpMethodFilter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.HiddenHttpMethodFilter&lt;/filterclass&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span> <span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Handler<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PutMapping(&quot;/update&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">update</span><span class="params">(HttpServletResponse response)</span></span>&#123;</span><br><span class="line"> response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;已接收到PUT请求&quot;</span>; &#125;</span><br><span class="line"><span class="meta">@DeleteMapping(&quot;/delete&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(HttpServletResponse response)</span></span>&#123;</span><br><span class="line"> response.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;已接收到DELETE请求&quot;</span>; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3></li>
+</ol>
+<ul>
+<li>⭐添加课程，成功则返回全部课程信息。</li>
+<li>⭐查询课程，通过 id 查询对应课程信息。</li>
+<li>⭐修改课程，成功则返回修改之后的全部课程信息。</li>
+<li>⭐删除课程，成功则返回删除之后的全部课程信息。<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3></li>
+</ul>
+<ol>
+<li>JSP</li>
+</ol>
+<ul>
+<li>⭐添加课程：add.jsp</li>
+<li>⭐修改课程：edit.jsp</li>
+<li>⭐课程展示：index.jsp</li>
+</ul>
+<ol start="2">
+<li>Corese实体类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Course</span></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Integer id;</span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="keyword">private</span> Double price; &#125;</span><br></pre></td></tr></table></figure></li>
+<li>CourseRepository<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.repository;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.Course;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CourseRepository</span> </span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Map&lt;Integer, Course&gt; courseMap;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">CourseRepository</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> courseMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"> courseMap.put(<span class="number">1</span>,<span class="keyword">new</span> Course(<span class="number">1</span>,<span class="string">&quot;Java基础&quot;</span>,Double.parseDouble(<span class="string">&quot;500&quot;</span>)));</span><br><span class="line"> courseMap.put(<span class="number">2</span>,<span class="keyword">new</span> Course(<span class="number">2</span>,<span class="string">&quot;Java⾼级&quot;</span>,Double.parseDouble(<span class="string">&quot;600&quot;</span>)));</span><br><span class="line"> courseMap.put(<span class="number">3</span>,<span class="keyword">new</span> Course(<span class="number">3</span>,<span class="string">&quot;企业级框架&quot;</span>,Double.parseDouble(<span class="string">&quot;700&quot;</span>)));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> Collection&lt;Course&gt; <span class="title">findAll</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> courseMap.values();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> Course <span class="title">findById</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line"> <span class="keyword">return</span> courseMap.get(id);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveOrUpdate</span><span class="params">(Course course)</span></span>&#123;</span><br><span class="line"> courseMap.put(course.getId(),course);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line"> courseMap.remove(id);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>CourseController<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.southwind.controller;</span><br><span class="line"><span class="keyword">import</span> com.southwind.entity.Course;</span><br><span class="line"><span class="keyword">import</span> com.southwind.repository.CourseRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/course&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CourseController</span> </span>&#123;</span><br><span class="line"> <span class="meta">@Autowired</span></span><br><span class="line"> <span class="keyword">private</span> CourseRepository courseRepository;</span><br><span class="line"> <span class="meta">@PostMapping(&quot;/save&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(Course course)</span></span>&#123;</span><br><span class="line"> courseRepository.saveOrUpdate(course);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;redirect:/course/findAll&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@GetMapping(&quot;/findAll&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">findAll</span><span class="params">()</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;index&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;list&quot;</span>,courseRepository.findAll());</span><br><span class="line"> <span class="keyword">return</span> modelAndView;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@DeleteMapping(&quot;/deleteById/&#123;id&#125;&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">deleteById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id)</span></span>&#123;</span><br><span class="line"> courseRepository.deleteById(id);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;redirect:/course/findAll&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@GetMapping(&quot;/findById/&#123;id&#125;&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">findById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id)</span></span>&#123;</span><br><span class="line"> ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView();</span><br><span class="line"> modelAndView.setViewName(<span class="string">&quot;edit&quot;</span>);</span><br><span class="line"> modelAndView.addObject(<span class="string">&quot;courser&quot;</span>,courseRepository.findById(id));</span><br><span class="line"> <span class="keyword">return</span> modelAndView;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">@PutMapping(&quot;/update&quot;)</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">update</span><span class="params">(Course course)</span></span>&#123;</span><br><span class="line"> courseRepository.saveOrUpdate(course);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;redirect:/course/findAll&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>JSP<br>sava.jsp<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">11</span></span><br><span class="line"> Time: <span class="number">16</span>:<span class="number">48</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/course/save&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line"> &lt;table&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;课程编号：&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;id&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;课程名称：&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;name&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;课程价格：&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;price&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;提交&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;reset&quot;</span> value=<span class="string">&quot;重置&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;/table&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+index.jsp<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">11</span></span><br><span class="line"> Time: <span class="number">16</span>:<span class="number">42</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page isELIgnored=<span class="string">&quot;false&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;table&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;th&gt;编号&lt;/th&gt;</span><br><span class="line"> &lt;th&gt;名称&lt;/th&gt;</span><br><span class="line"> &lt;th&gt;价格&lt;/th&gt;</span><br><span class="line"> &lt;th&gt;操作&lt;/th&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;c:forEach items=<span class="string">&quot;$&#123;list&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;course&quot;</span>&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;$&#123;course.id&#125;&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;$&#123;course.name&#125;&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;$&#123;course.price&#125;&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/course/deleteById/$&#123;course.id&#125;&quot;</span></span><br><span class="line">method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;_method&quot;</span> value=<span class="string">&quot;DELETE&quot;</span>/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;删除&quot;</span>/&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line"> &lt;a href=<span class="string">&quot;/course/findById/$&#123;course.id&#125;&quot;</span>&gt;修改&lt;/a&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;/c:forEach&gt;</span><br><span class="line"> &lt;/table&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+edit.jsp<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">11</span></span><br><span class="line"> Time: <span class="number">17</span>:<span class="number">13</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page isELIgnored=<span class="string">&quot;false&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/course/update&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;_method&quot;</span> value=<span class="string">&quot;PUT&quot;</span>/&gt;</span><br><span class="line"> &lt;table&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;编号:&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;id&quot;</span> readonly</span><br><span class="line">value=<span class="string">&quot;$&#123;courser.id&#125;&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;名称:&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;name&quot;</span> value=<span class="string">&quot;$&#123;courser.name&#125;&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;价格:&lt;/td&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;price&quot;</span> value=<span class="string">&quot;$&#123;courser.price&#125;&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;tr&gt;</span><br><span class="line"> &lt;td&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;修改&quot;</span>/&gt;</span><br><span class="line"> &lt;/td&gt;</span><br><span class="line"> &lt;/tr&gt;</span><br><span class="line"> &lt;/table&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Spring-MVC实现⽂件的上传下载"><a href="#Spring-MVC实现⽂件的上传下载" class="headerlink" title="Spring MVC实现⽂件的上传下载"></a>Spring MVC实现⽂件的上传下载</h3>文件上传<h3 id="单⽂件上传"><a href="#单⽂件上传" class="headerlink" title="单⽂件上传"></a>单⽂件上传</h3></li>
+<li>底层使⽤的是 Apache fileupload 组件完成上传功能，Spring MVC 只是对其进⾏了封装，简化开发，pom.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-fileupload<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-fileupload<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>JSP页面</li>
+</ol>
+<ul>
+<li>⭐input 的 type 设置为 file</li>
+<li>⭐form 表单的 method 设置为 post</li>
+<li>⭐form 表单的 enctype 设置为 multipart/form-data<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">11</span></span><br><span class="line"> Time: <span class="number">17</span>:<span class="number">28</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page isELIgnored=<span class="string">&quot;false&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/file/upload&quot;</span> method=<span class="string">&quot;post&quot;</span> enctype=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;file&quot;</span> name=<span class="string">&quot;img&quot;</span>/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;提交&quot;</span>/&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line"> &lt;img src=<span class="string">&quot;$&#123;src&#125;&quot;</span>/&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+Handler<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/upload&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">upload</span><span class="params">(<span class="meta">@RequestParam(&quot;img&quot;)</span> MultipartFile img,</span></span></span><br><span class="line"><span class="params"><span class="function">HttpServletRequest request)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(img.getSize()&gt;<span class="number">0</span>)&#123;</span><br><span class="line"> String path =</span><br><span class="line">request.getSession().getServletContext().getRealPath(<span class="string">&quot;file&quot;</span>);</span><br><span class="line"> String fileName = img.getOriginalFilename();</span><br><span class="line"> File file = <span class="keyword">new</span> File(path,fileName);</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line"> img.transferTo(file);</span><br><span class="line"> request.setAttribute(<span class="string">&quot;src&quot;</span>,<span class="string">&quot;/file/&quot;</span>+fileName);</span><br><span class="line"> &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line"> e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;upload&quot;</span>; &#125;</span><br></pre></td></tr></table></figure>
+springmvc.xml<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;multipartResolver&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">class</span>=<span class="string">&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="多文件上传"><a href="#多文件上传" class="headerlink" title="多文件上传"></a>多文件上传</h3>JSP<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line"> Created by IntelliJ IDEA.</span><br><span class="line"> User: southwind</span><br><span class="line"> Date: <span class="number">2020</span>-<span class="number">02</span>-<span class="number">12</span></span><br><span class="line"> Time: <span class="number">11</span>:<span class="number">11</span></span><br><span class="line"> To change <span class="keyword">this</span> template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;%@ taglib prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">&lt;%@ page isELIgnored=<span class="string">&quot;false&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt; &lt;head&gt;</span><br><span class="line"> &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt; &lt;body&gt;</span><br><span class="line"> &lt;form action=<span class="string">&quot;/file/uploads&quot;</span> method=<span class="string">&quot;post&quot;</span> enctype=<span class="string">&quot;multipart/form-data&quot;</span>&gt;</span><br><span class="line"> file1:&lt;input type=<span class="string">&quot;file&quot;</span> name=<span class="string">&quot;imgs&quot;</span>/&gt;&lt;br/&gt;</span><br><span class="line"> file2:&lt;input type=<span class="string">&quot;file&quot;</span> name=<span class="string">&quot;imgs&quot;</span>/&gt;&lt;br/&gt;</span><br><span class="line"> file3:&lt;input type=<span class="string">&quot;file&quot;</span> name=<span class="string">&quot;imgs&quot;</span>/&gt;&lt;br/&gt;</span><br><span class="line"> &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;提交&quot;</span>/&gt;</span><br><span class="line"> &lt;/form&gt;</span><br><span class="line"> &lt;c:forEach items=<span class="string">&quot;$&#123;list&#125;&quot;</span> <span class="keyword">var</span>=<span class="string">&quot;path&quot;</span>&gt;</span><br><span class="line"> &lt;img width=<span class="string">&quot;300px&quot;</span> src=<span class="string">&quot;$&#123;path&#125;&quot;</span>&gt;</span><br><span class="line"> &lt;/c:forEach&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+Handler<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/uploads&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">uploads</span><span class="params">(<span class="meta">@RequestParam(&quot;imgs&quot;)</span> MultipartFile[]</span></span></span><br><span class="line"><span class="params"><span class="function">imgs,HttpServletRequest request)</span></span>&#123;</span><br><span class="line"> List&lt;String&gt; pathList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"> <span class="keyword">for</span>(MultipartFile img:imgs)&#123;</span><br><span class="line"> <span class="keyword">if</span>(img.getSize()&gt;<span class="number">0</span>)&#123;</span><br><span class="line"> String path =</span><br><span class="line">request.getSession().getServletContext().getRealPath(<span class="string">&quot;file&quot;</span>);</span><br><span class="line"> String fileName = img.getOriginalFilename();</span><br><span class="line"> File file = <span class="keyword">new</span> File(path,fileName);</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line"> img.transferTo(file);</span><br><span class="line"> pathList.add(<span class="string">&quot;/file/&quot;</span>+fileName);</span><br><span class="line"> &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line"> e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> request.setAttribute(<span class="string">&quot;list&quot;</span>,pathList);</span><br><span class="line"> <span class="keyword">return</span> <span class="string">&quot;uploads&quot;</span>; &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://oybox.github.io/2021/12/26/Spring%20MVC/Spring%20MVC_4/" title="SpringMVC_4" target="_blank" rel="external">https://oybox.github.io/2021/12/26/Spring MVC/Spring MVC_4/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/OYbox" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/OYbox" target="_blank"><span class="text-dark">OYbox-日峰</span><small class="ml-1x">Programer</small></a></h3>
+        <div>Java程序员</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_5/" title="SpringMVC_5"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/12/26/Spring%20MVC/Spring%20MVC_3/" title="SpringMVC_3"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/OYbox" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/OYbox" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'K7VRD1W91QK5QPXA1Rm2RCH6-gzGzoHsz',
+    appKey: '7VkpoxLomnDFLMH5RxMP9Uc1',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
