@@ -4,7 +4,14 @@
   <url>
     <loc>https://oybox.github.io/2021/12/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%94%A824%E5%BC%A0%E5%9B%BE%E4%BB%8B%E7%BB%8D%E4%B9%9D%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
     
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/2022/01/06/Redis/%E7%8B%82%E7%A5%9E%E8%AF%B4Redis%E7%AC%94%E8%AE%B0%EF%BC%88CSDN%E6%95%B4%E7%90%86%E7%89%88%EF%BC%89/</loc>
+    
+    <lastmod>2022-01-06</lastmod>
     
   </url>
   
@@ -249,7 +256,7 @@
 
   <url>
     <loc>https://oybox.github.io/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -257,21 +264,21 @@
   
   <url>
     <loc>https://oybox.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/tags/%E6%80%BB%E7%BB%93%E5%BD%92%E7%BA%B3/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/tags/%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -280,49 +287,56 @@
   
   <url>
     <loc>https://oybox.github.io/categories/JavaSE/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/MyBatis/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/Spring/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/SpringMVC/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/SSM/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/Spring-Boot/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://oybox.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2021-12-26</lastmod>
+    <lastmod>2022-01-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://oybox.github.io/categories/Redis/</loc>
+    <lastmod>2022-01-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
