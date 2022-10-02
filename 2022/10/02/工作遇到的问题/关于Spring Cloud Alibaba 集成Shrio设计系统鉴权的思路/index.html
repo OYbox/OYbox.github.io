@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路 | 欧阳日峰の博客</title><meta name="keywords" content="工作总结"><meta name="author" content="欧阳日峰"><meta name="copyright" content="欧阳日峰"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路   最近一直忙于公司项目，公司新合作了两个客户，因此大部分的时间我都在API的对接中，以至于没时间更新博客，趁着国庆放假，写一下我对微服务中设计鉴权模块的思路，顺便祝各位国庆长假快乐！    由于我们的系统不算大型，所以在1.0的单体架构中我所选用的安全框架是Shrio，放弃了重量级的Spring Security，因">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路">
+<meta property="og:url" content="https://oybox.github.io/2022/10/02/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8ESpring%20Cloud%20Alibaba%20%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:site_name" content="欧阳日峰の博客">
+<meta property="og:description" content="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路   最近一直忙于公司项目，公司新合作了两个客户，因此大部分的时间我都在API的对接中，以至于没时间更新博客，趁着国庆放假，写一下我对微服务中设计鉴权模块的思路，顺便祝各位国庆长假快乐！    由于我们的系统不算大型，所以在1.0的单体架构中我所选用的安全框架是Shrio，放弃了重量级的Spring Security，因">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oybox.github.io/img/shiro.jpeg">
+<meta property="article:published_time" content="2022-10-02T15:40:07.000Z">
+<meta property="article:modified_time" content="2022-10-02T15:43:33.624Z">
+<meta property="article:author" content="欧阳日峰">
+<meta property="article:tag" content="工作总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://oybox.github.io/img/shiro.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://oybox.github.io/2022/10/02/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8ESpring%20Cloud%20Alibaba%20%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-02 23:43:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/%E4%B8%BB%E9%A2%98/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E9%9F%B3%E4%B9%90"><i class="fa-fw /music/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E7%85%A7%E7%89%87"><i class="fa-fw /Gallery/"></i><span> 2</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/shiro.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">欧阳日峰の博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E9%9F%B3%E4%B9%90"><i class="fa-fw /music/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E7%85%A7%E7%89%87"><i class="fa-fw /Gallery/"></i><span> 2</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-02T15:40:07.000Z" title="发表于 2022-10-02 23:40:07">2022-10-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-02T15:43:33.624Z" title="更新于 2022-10-02 23:43:33">2022-10-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="关于Spring-Cloud-Alibaba-集成Shrio设计系统鉴权的思路"><a href="#关于Spring-Cloud-Alibaba-集成Shrio设计系统鉴权的思路" class="headerlink" title="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路"></a>关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路</h1><p>   最近一直忙于公司项目，公司新合作了两个客户，因此大部分的时间我都在API的对接中，以至于没时间更新博客，趁着国庆放假，写一下我对微服务中设计鉴权模块的思路，顺便祝各位国庆长假快乐！</p>
+<p>   由于我们的系统不算大型，所以在1.0的单体架构中我所选用的安全框架是Shrio，放弃了重量级的Spring Security，因此在2.0微服务架构上，我们依然用回Shrio，但是在设计上与单体架构还是有一些区别的。</p>
+<p>   ⭐首先Shiro是一个功能强大，简单的安全框架。对传统的单机系统支持较好，但与微服务整合后比较麻烦，网上资料比较散乱，因此我得记录下我的实现方法。</p>
+<p>   之前的文章说过，有两种解决方法，一种是网关和鉴权放在同一个微服务上实现，另一种则是分开，而我设计的就是后者。思路如下：</p>
+<ol>
+<li>前端发送登陆请求，首先进入网关，网关通过识别URL进入登录服务（鉴权服务）</li>
+<li>登录成功后Shiro会生成session并将sessionId返回前端，session中包含用户基本信息及权限信息。</li>
+<li>Shiro会将session放入redis中供其他服务查看。</li>
+<li>当前端请求别的服务时，会通过网关携带sessionId请求其他服务，其他服务再根据会话管理在Redis中查询相对应的Session从而保持会话。</li>
+</ol>
+<p>⭐我将设计图贴出：<br>   <img src="/img/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%9B%BE/shrio1.png" alt="shrio1"> </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">欧阳日峰</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://oybox.github.io/2022/10/02/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8ESpring%20Cloud%20Alibaba%20%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF/">https://oybox.github.io/2022/10/02/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8ESpring%20Cloud%20Alibaba%20%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://oybox.github.io" target="_blank">欧阳日峰の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/">工作总结</a></div><div class="post_share"><div class="social-share" data-image="/img/shiro.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/09/18/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8EShiro%E4%B8%8D%E8%BF%9B%E5%85%A5doGetAuthorizationInfo%E6%96%B9%E6%B3%95%E7%9A%84%E8%A7%A3%E5%86%B3/"><img class="next-cover" src="/img/shiro.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">关于Shiro不进入doGetAuthorizationInfo方法的解决</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/09/08/工作遇到的问题/在搭建Seata分布式事务中遇到各种报错的解决方式/" title="在搭建Seata分布式事务中遇到各种报错的解决方式"><img class="cover" src="/img/springcloud.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-08</div><div class="title">在搭建Seata分布式事务中遇到各种报错的解决方式</div></div></a></div><div><a href="/2022/09/08/工作遇到的问题/在将本地ip映射到公网上的方法/" title="在将本地ip映射到公网上的方法"><img class="cover" src="/img/ngrok.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-08</div><div class="title">在将本地ip映射到公网上的方法</div></div></a></div><div><a href="/2022/09/11/工作遇到的问题/关于sentinel没有监控数据的问题/" title="关于sentinel没有监控数据的问题"><img class="cover" src="/img/springcloud.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-11</div><div class="title">关于sentinel没有监控数据的问题</div></div></a></div><div><a href="/2022/09/18/工作遇到的问题/关于Shiro不进入doGetAuthorizationInfo方法的解决/" title="关于Shiro不进入doGetAuthorizationInfo方法的解决"><img class="cover" src="/img/shiro.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-18</div><div class="title">关于Shiro不进入doGetAuthorizationInfo方法的解决</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/%E4%B8%BB%E9%A2%98/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">欧阳日峰</div><div class="author-info__description">记录技术上遇到的问题以及生活日常</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/OYbox"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8ESpring-Cloud-Alibaba-%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/02/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8ESpring%20Cloud%20Alibaba%20%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF/" title="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路"><img src="/img/shiro.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路"/></a><div class="content"><a class="title" href="/2022/10/02/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8ESpring%20Cloud%20Alibaba%20%E9%9B%86%E6%88%90Shrio%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F%E9%89%B4%E6%9D%83%E7%9A%84%E6%80%9D%E8%B7%AF/" title="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路">关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路</a><time datetime="2022-10-02T15:40:07.000Z" title="发表于 2022-10-02 23:40:07">2022-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/18/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8EShiro%E4%B8%8D%E8%BF%9B%E5%85%A5doGetAuthorizationInfo%E6%96%B9%E6%B3%95%E7%9A%84%E8%A7%A3%E5%86%B3/" title="关于Shiro不进入doGetAuthorizationInfo方法的解决"><img src="/img/shiro.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于Shiro不进入doGetAuthorizationInfo方法的解决"/></a><div class="content"><a class="title" href="/2022/09/18/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8EShiro%E4%B8%8D%E8%BF%9B%E5%85%A5doGetAuthorizationInfo%E6%96%B9%E6%B3%95%E7%9A%84%E8%A7%A3%E5%86%B3/" title="关于Shiro不进入doGetAuthorizationInfo方法的解决">关于Shiro不进入doGetAuthorizationInfo方法的解决</a><time datetime="2022-09-18T15:57:07.000Z" title="发表于 2022-09-18 23:57:07">2022-09-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/11/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8Esentinel%E6%B2%A1%E6%9C%89%E7%9B%91%E6%8E%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E9%97%AE%E9%A2%98/" title="关于sentinel没有监控数据的问题"><img src="/img/springcloud.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于sentinel没有监控数据的问题"/></a><div class="content"><a class="title" href="/2022/09/11/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8Esentinel%E6%B2%A1%E6%9C%89%E7%9B%91%E6%8E%A7%E6%95%B0%E6%8D%AE%E7%9A%84%E9%97%AE%E9%A2%98/" title="关于sentinel没有监控数据的问题">关于sentinel没有监控数据的问题</a><time datetime="2022-09-11T13:57:07.000Z" title="发表于 2022-09-11 21:57:07">2022-09-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/08/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%9C%A8%E6%90%AD%E5%BB%BASeata%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%AD%E9%81%87%E5%88%B0%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" title="在搭建Seata分布式事务中遇到各种报错的解决方式"><img src="/img/springcloud.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在搭建Seata分布式事务中遇到各种报错的解决方式"/></a><div class="content"><a class="title" href="/2022/09/08/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%9C%A8%E6%90%AD%E5%BB%BASeata%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%AD%E9%81%87%E5%88%B0%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" title="在搭建Seata分布式事务中遇到各种报错的解决方式">在搭建Seata分布式事务中遇到各种报错的解决方式</a><time datetime="2022-09-08T13:57:07.000Z" title="发表于 2022-09-08 21:57:07">2022-09-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/08/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%9C%A8%E5%B0%86%E6%9C%AC%E5%9C%B0ip%E6%98%A0%E5%B0%84%E5%88%B0%E5%85%AC%E7%BD%91%E4%B8%8A%E7%9A%84%E6%96%B9%E6%B3%95/" title="在将本地ip映射到公网上的方法"><img src="/img/ngrok.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在将本地ip映射到公网上的方法"/></a><div class="content"><a class="title" href="/2022/09/08/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%9C%A8%E5%B0%86%E6%9C%AC%E5%9C%B0ip%E6%98%A0%E5%B0%84%E5%88%B0%E5%85%AC%E7%BD%91%E4%B8%8A%E7%9A%84%E6%96%B9%E6%B3%95/" title="在将本地ip映射到公网上的方法">在将本地ip映射到公网上的方法</a><time datetime="2022-09-08T13:57:07.000Z" title="发表于 2022-09-08 21:57:07">2022-09-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 欧阳日峰</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script data-pjax defer src="https://npm.elemecdn.com/tzy-blog/lib/js/theme/chocolate.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script><div class="aplayer no-destroy" data-id="8618755444" data-server="tencent" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
