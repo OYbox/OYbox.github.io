@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>关于部署验证freeswitch | 欧阳日峰の博客</title><meta name="keywords" content="工作总结"><meta name="author" content="欧阳日峰"><meta name="copyright" content="欧阳日峰"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="关于部署验证freeswitch⭐进入通信行业也有一定的年头了，一直在做Java开发，最近帮公司开发的呼叫中心和通信助手APP已经成功落地，那么便了解一下通信呼叫中心的软交换如何实现，下面是我记录的使用freeswitch搭建内线呼叫中心系统。⭐介绍：freeswitch可集成ASR(语音识别)和TTS(文本转语音)创建智能电话机器人和用户通话，可用于问卷调查，自动催缴等业务，电话咨询服务，支持百">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于部署验证freeswitch">
+<meta property="og:url" content="https://oybox.github.io/2023/02/19/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch/index.html">
+<meta property="og:site_name" content="欧阳日峰の博客">
+<meta property="og:description" content="关于部署验证freeswitch⭐进入通信行业也有一定的年头了，一直在做Java开发，最近帮公司开发的呼叫中心和通信助手APP已经成功落地，那么便了解一下通信呼叫中心的软交换如何实现，下面是我记录的使用freeswitch搭建内线呼叫中心系统。⭐介绍：freeswitch可集成ASR(语音识别)和TTS(文本转语音)创建智能电话机器人和用户通话，可用于问卷调查，自动催缴等业务，电话咨询服务，支持百">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oybox.github.io/img/%E5%A4%96%E5%91%BC.png">
+<meta property="article:published_time" content="2023-02-19T13:57:07.000Z">
+<meta property="article:modified_time" content="2023-02-19T15:22:49.502Z">
+<meta property="article:author" content="欧阳日峰">
+<meta property="article:tag" content="工作总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://oybox.github.io/img/%E5%A4%96%E5%91%BC.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://oybox.github.io/2023/02/19/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-19 23:22:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/%E4%B8%BB%E9%A2%98/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E9%9F%B3%E4%B9%90"><i class="fa-fw /music/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E7%85%A7%E7%89%87"><i class="fa-fw /Gallery/"></i><span> 2</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/%E5%A4%96%E5%91%BC.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">欧阳日峰の博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/%E9%9F%B3%E4%B9%90"><i class="fa-fw /music/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E7%85%A7%E7%89%87"><i class="fa-fw /Gallery/"></i><span> 2</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于部署验证freeswitch</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-19T13:57:07.000Z" title="发表于 2023-02-19 21:57:07">2023-02-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-19T15:22:49.502Z" title="更新于 2023-02-19 23:22:49">2023-02-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/">外呼系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="关于部署验证freeswitch"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="关于部署验证freeswitch"><a href="#关于部署验证freeswitch" class="headerlink" title="关于部署验证freeswitch"></a>关于部署验证freeswitch</h1><p>⭐进入通信行业也有一定的年头了，一直在做Java开发，最近帮公司开发的呼叫中心和通信助手APP已经成功落地，那么便了解一下通信呼叫中心的软交换如何实现，下面是我记录的使用freeswitch搭建内线呼叫中心系统。<br>⭐介绍：freeswitch可集成ASR(语音识别)和TTS(文本转语音)创建智能电话机器人和用户通话，可用于问卷调查，自动催缴等业务，电话咨询服务，支持百度，科大，阿里云，腾讯等ASR系统，可以真人预先录音，用户完全察觉不到是机器人。<br>⭐环境：Linux：Centos7、Freeswitch1.6 、Eyebeam</p>
+<hr>
+
+<h2 id="一、部署安装freeswitch"><a href="#一、部署安装freeswitch" class="headerlink" title="一、部署安装freeswitch"></a>一、部署安装freeswitch</h2><h3 id="1-安装freeswitch需要的依赖"><a href="#1-安装freeswitch需要的依赖" class="headerlink" title="1.安装freeswitch需要的依赖"></a>1.安装freeswitch需要的依赖</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#安装依赖</span><br><span class="line">yum install -y http://files.freeswitch.org/freeswitch-release-1-6.noarch.rpm epel-release</span><br><span class="line">#安装依赖</span><br><span class="line">yum install -y git alsa-lib-devel autoconf automake bison broadvoice-devel bzip2 curl-devel libdb4-devel e2fsprogs-devel erlang flite-devel g722_1-devel gcc-c++ gdbm-devel gnutls-devel ilbc2-devel ldns-devel libcodec2-devel libcurl-devel libedit-devel libidn-devel libjpeg-devel libmemcached-devel libogg-devel libsilk-devel libsndfile-devel libtheora-devel libtiff-devel libtool libuuid-devel libvorbis-devel libxml2-devel lua-devel lzo-devel mongo-c-driver-devel ncurses-devel net-snmp-devel openssl-devel opus-devel pcre-devel perl perl-ExtUtils-Embed pkgconfig portaudio-devel postgresql-devel python-devel python-devel soundtouch-devel speex-devel sqlite-devel unbound-devel unixODBC-devel wget which yasm zlib-devel libshout-devel libmpg123-devel lame-devel</span><br></pre></td></tr></table></figure>
+<h3 id="2-下载freeswitch安装包"><a href="#2-下载freeswitch安装包" class="headerlink" title="2.下载freeswitch安装包"></a>2.下载freeswitch安装包</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#进入指定目录</span><br><span class="line">cd /usr/local/src</span><br><span class="line">#通过git拉取安装包</span><br><span class="line">git clone -b v1.6 https://github.com/signalwire/freeswitch.git</span><br></pre></td></tr></table></figure>
+<h3 id="3-编译freeswitch"><a href="#3-编译freeswitch" class="headerlink" title="3.编译freeswitch"></a>3.编译freeswitch</h3><p>友情提示：此处编译至少需要耗费半小时，可喝一杯咖啡放松一下~</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#进入安装包目录</span><br><span class="line">cd /usr/local/src/freeswitch</span><br><span class="line">#执行编译命令</span><br><span class="line">./bootstrap.sh -j</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make -j install</span><br><span class="line"></span><br><span class="line">#安装声音文件</span><br><span class="line">make -j cd-sounds-install</span><br><span class="line">make -j cd-moh-install</span><br></pre></td></tr></table></figure>
+<h3 id="4-freeswitch安装结果"><a href="#4-freeswitch安装结果" class="headerlink" title="4.freeswitch安装结果"></a>4.freeswitch安装结果</h3><p>注： 至此freeswitch就已经安装完了，freeswitch其默认的安装位置是&#x2F;usr&#x2F;local&#x2F;freeswitch</p>
+<p><img src="/img/%E9%80%9A%E8%AE%AF%E8%A1%8C%E4%B8%9A/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/freeswitch_1.png" alt="freeswitch_1"> </p>
+<h3 id="5-配置freeswitch任何路径启动"><a href="#5-配置freeswitch任何路径启动" class="headerlink" title="5.配置freeswitch任何路径启动"></a>5.配置freeswitch任何路径启动</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#将freeswitch作符号软链接</span><br><span class="line">ln -sf /usr/local/freeswitch/bin/freeswitch /usr/bin/</span><br><span class="line">#fs_cli作符号软链接</span><br><span class="line">ln -sf /usr/local/freeswitch/bin/fs_cli /usr/bin/</span><br></pre></td></tr></table></figure>
+<h3 id="6-freeswitch-命令操作"><a href="#6-freeswitch-命令操作" class="headerlink" title="6.freeswitch 命令操作"></a>6.freeswitch 命令操作</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">===============启动命令================</span><br><span class="line">#详细启动日志并进入控制台模式命令</span><br><span class="line">freeswitch -c -nonat -rp</span><br><span class="line">#退出详细模式启动命令</span><br><span class="line">shutdown</span><br><span class="line">#后台启动freeswitch服务（推荐使用）</span><br><span class="line">freeswitch -nc -nonat</span><br><span class="line">#进入控制台模式命令</span><br><span class="line">fs_cli</span><br><span class="line">#退出控制台命令</span><br><span class="line">/exit</span><br><span class="line">#关闭freeswitch命令</span><br><span class="line">freeswitch -stop</span><br><span class="line">===============查询服务命令=============</span><br><span class="line">#查看freeswitch安装路径</span><br><span class="line">whereis freeswitch</span><br><span class="line">查看进程号</span><br><span class="line">ps -ef | grep freeswithch</span><br><span class="line">查看freeswitch端口是否被监听</span><br><span class="line">netstat -anp | grep 5060</span><br><span class="line">#查看freeswitch的运行状态</span><br><span class="line">status（控制台模式执行）</span><br><span class="line">#查看freewitch内置用户是否注册</span><br><span class="line">sofia status profile internal reg（控制台模式执行）</span><br></pre></td></tr></table></figure>
+<h3 id="7-启动freeswitch并进入控制台"><a href="#7-启动freeswitch并进入控制台" class="headerlink" title="7.启动freeswitch并进入控制台"></a>7.启动freeswitch并进入控制台</h3><p><img src="/img/%E9%80%9A%E8%AE%AF%E8%A1%8C%E4%B8%9A/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/freeswitch_2.gif" alt="freeswitch_2"> </p>
+<p>解决执行fs_cli进入控制台模式报错：[ERROR] fs_cli.c:1659 main() Error Connecting [Socket Connection Error]</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#进入freeswitch配置文件路径</span><br><span class="line">cd /usr/local/freeswitch/conf/autoload_configs/</span><br><span class="line">#修改配置</span><br><span class="line">vim event_socket.conf.xml</span><br><span class="line">#更改结果</span><br><span class="line">&lt;param name=&quot;listen-ip&quot; value=&quot;::&quot;/&gt;  改为 &lt;param name=&quot;listen-ip&quot; value=&quot;0.0.0.0&quot;/&gt;</span><br><span class="line">#重启freeswitch</span><br><span class="line">freeswitch -stop</span><br><span class="line">freeswitch -nc -nonat</span><br><span class="line">fs_cli</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+<h2 id="二、freeswitch服务通话测试"><a href="#二、freeswitch服务通话测试" class="headerlink" title="二、freeswitch服务通话测试"></a>二、freeswitch服务通话测试</h2><p>电脑下载软电话注册软件：X-Lite、Zoiper、Eyebeam(需要安装的可以联系我)</p>
+<p><img src="/img/%E9%80%9A%E8%AE%AF%E8%A1%8C%E4%B8%9A/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/freeswitch_3.png" alt="freeswitch_3"> </p>
+<h3 id="1-使用Eyebeam软件进行配置注册"><a href="#1-使用Eyebeam软件进行配置注册" class="headerlink" title="1.使用Eyebeam软件进行配置注册"></a>1.使用Eyebeam软件进行配置注册</h3><p>⭐Eyebeam软电话注册成功</p>
+<p><img src="/img/%E9%80%9A%E8%AE%AF%E8%A1%8C%E4%B8%9A/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/freeswitch_4.png" alt="freeswitch_4"> </p>
+<p>⭐解决软电话注册错误问题状态码</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">=============1、404 Not found==============</span><br><span class="line">原因：freeswtich没有启动或者端口被占用，总之Eyebeam不能到达指定domain</span><br><span class="line"> </span><br><span class="line">解决方法：</span><br><span class="line">确保freeswitch已经启动并且5060端口没被占用</span><br><span class="line">#netstat -napl|grep 5060</span><br><span class="line"> </span><br><span class="line">=============2、403 forbidden==============</span><br><span class="line">用户名密码错误</span><br><span class="line"> </span><br><span class="line">原因：freeswitch一开始安装好 默认会给你配置好20个account （1000-1019），密码统一是1234，这个可以在freeswitch/conf/vars.xml里面修改</span><br><span class="line">解决方法：</span><br><span class="line">检查用户名密码是否错误</span><br><span class="line"> </span><br><span class="line">=============3、408 timeout===============</span><br><span class="line">连接超时</span><br><span class="line">原因：Eyebeam上配置的domain不正确， 或者网络有问题</span><br><span class="line"> </span><br><span class="line">解决方法：</span><br><span class="line">a、确保所填的域名是正确的ip地址</span><br><span class="line">b、确保已经关闭防火墙(centos下)</span><br><span class="line">关闭防火墙：</span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line">查看防火墙状态</span><br><span class="line">#firewall-cmd --state</span><br><span class="line">输出：not running  //说明防火墙已经关闭</span><br><span class="line">c、查看iptables</span><br></pre></td></tr></table></figure>
+<h3 id="2-开始拨号，默认内置拨号如下"><a href="#2-开始拨号，默认内置拨号如下" class="headerlink" title="2.开始拨号，默认内置拨号如下"></a>2.开始拨号，默认内置拨号如下</h3><p><img src="/img/%E9%80%9A%E8%AE%AF%E8%A1%8C%E4%B8%9A/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/freeswitch_5.png" alt="freeswitch_5"> </p>
+<h3 id="3-Eyebeam拨打9196号码进行回音测试"><a href="#3-Eyebeam拨打9196号码进行回音测试" class="headerlink" title="3.Eyebeam拨打9196号码进行回音测试"></a>3.Eyebeam拨打9196号码进行回音测试</h3><p><img src="/img/%E9%80%9A%E8%AE%AF%E8%A1%8C%E4%B8%9A/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/freeswitch_6.png" alt="freeswitch_6"> </p>
+<p>如图所示呼叫建立成功、麦克风有电话回音、freeswitch控制台日志输出正常！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">欧阳日峰</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://oybox.github.io/2023/02/19/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch/">https://oybox.github.io/2023/02/19/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://oybox.github.io" target="_blank">欧阳日峰の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/">工作总结</a></div><div class="post_share"><div class="social-share" data-image="/img/%E5%A4%96%E5%91%BC.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/01/20/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E4%BA%8EJava%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E7%94%B5%E9%94%80%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%99%9A%E6%8B%9F%E5%91%BC%E5%8F%AB%E4%B8%AD%E5%BF%83+CRM%E9%80%9A%E4%BF%A1%E5%8A%A9%E6%89%8B%EF%BC%89/"><img class="next-cover" src="/img/%E5%A4%96%E5%91%BC.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">基于Java语言开发电销系统（虚拟呼叫中心+CRM通信助手）</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/09/08/工作遇到的问题/在搭建Seata分布式事务中遇到各种报错的解决方式/" title="在搭建Seata分布式事务中遇到各种报错的解决方式"><img class="cover" src="/img/springcloud.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-08</div><div class="title">在搭建Seata分布式事务中遇到各种报错的解决方式</div></div></a></div><div><a href="/2022/09/08/工作遇到的问题/在将本地ip映射到公网上的方法/" title="在将本地ip映射到公网上的方法"><img class="cover" src="/img/ngrok.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-08</div><div class="title">在将本地ip映射到公网上的方法</div></div></a></div><div><a href="/2022/09/11/工作遇到的问题/关于sentinel没有监控数据的问题/" title="关于sentinel没有监控数据的问题"><img class="cover" src="/img/springcloud.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-11</div><div class="title">关于sentinel没有监控数据的问题</div></div></a></div><div><a href="/2022/09/18/工作遇到的问题/关于Shiro不进入doGetAuthorizationInfo方法的解决/" title="关于Shiro不进入doGetAuthorizationInfo方法的解决"><img class="cover" src="/img/shiro.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-18</div><div class="title">关于Shiro不进入doGetAuthorizationInfo方法的解决</div></div></a></div><div><a href="/2022/10/02/工作遇到的问题/关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路/" title="关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路"><img class="cover" src="/img/shiro.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-02</div><div class="title">关于Spring Cloud Alibaba 集成Shrio设计系统鉴权的思路</div></div></a></div><div><a href="/2022/10/25/工作遇到的问题/关于token失效的处理方法/" title="关于token失效的处理方法"><img class="cover" src="/img/%E5%A4%96%E5%91%BC.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-25</div><div class="title">关于token失效的处理方法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/%E4%B8%BB%E9%A2%98/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">欧阳日峰</div><div class="author-info__description">记录技术上遇到的问题以及生活日常</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/OYbox"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch"><span class="toc-number">1.</span> <span class="toc-text">关于部署验证freeswitch</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%83%A8%E7%BD%B2%E5%AE%89%E8%A3%85freeswitch"><span class="toc-number">1.1.</span> <span class="toc-text">一、部署安装freeswitch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85freeswitch%E9%9C%80%E8%A6%81%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.安装freeswitch需要的依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8B%E8%BD%BDfreeswitch%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.下载freeswitch安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BC%96%E8%AF%91freeswitch"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.编译freeswitch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-freeswitch%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.freeswitch安装结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%85%8D%E7%BD%AEfreeswitch%E4%BB%BB%E4%BD%95%E8%B7%AF%E5%BE%84%E5%90%AF%E5%8A%A8"><span class="toc-number">1.1.5.</span> <span class="toc-text">5.配置freeswitch任何路径启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-freeswitch-%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.6.</span> <span class="toc-text">6.freeswitch 命令操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%90%AF%E5%8A%A8freeswitch%E5%B9%B6%E8%BF%9B%E5%85%A5%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="toc-number">1.1.7.</span> <span class="toc-text">7.启动freeswitch并进入控制台</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81freeswitch%E6%9C%8D%E5%8A%A1%E9%80%9A%E8%AF%9D%E6%B5%8B%E8%AF%95"><span class="toc-number">1.2.</span> <span class="toc-text">二、freeswitch服务通话测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8Eyebeam%E8%BD%AF%E4%BB%B6%E8%BF%9B%E8%A1%8C%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%86%8C"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.使用Eyebeam软件进行配置注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BC%80%E5%A7%8B%E6%8B%A8%E5%8F%B7%EF%BC%8C%E9%BB%98%E8%AE%A4%E5%86%85%E7%BD%AE%E6%8B%A8%E5%8F%B7%E5%A6%82%E4%B8%8B"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.开始拨号，默认内置拨号如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Eyebeam%E6%8B%A8%E6%89%939196%E5%8F%B7%E7%A0%81%E8%BF%9B%E8%A1%8C%E5%9B%9E%E9%9F%B3%E6%B5%8B%E8%AF%95"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.Eyebeam拨打9196号码进行回音测试</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/02/19/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch/" title="关于部署验证freeswitch"><img src="/img/%E5%A4%96%E5%91%BC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于部署验证freeswitch"/></a><div class="content"><a class="title" href="/2023/02/19/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%85%B3%E4%BA%8E%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81freeswitch/" title="关于部署验证freeswitch">关于部署验证freeswitch</a><time datetime="2023-02-19T13:57:07.000Z" title="发表于 2023-02-19 21:57:07">2023-02-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/20/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E4%BA%8EJava%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E7%94%B5%E9%94%80%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%99%9A%E6%8B%9F%E5%91%BC%E5%8F%AB%E4%B8%AD%E5%BF%83+CRM%E9%80%9A%E4%BF%A1%E5%8A%A9%E6%89%8B%EF%BC%89/" title="基于Java语言开发电销系统（虚拟呼叫中心+CRM通信助手）"><img src="/img/%E5%A4%96%E5%91%BC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于Java语言开发电销系统（虚拟呼叫中心+CRM通信助手）"/></a><div class="content"><a class="title" href="/2023/01/20/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E5%9F%BA%E4%BA%8EJava%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E7%94%B5%E9%94%80%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%99%9A%E6%8B%9F%E5%91%BC%E5%8F%AB%E4%B8%AD%E5%BF%83+CRM%E9%80%9A%E4%BF%A1%E5%8A%A9%E6%89%8B%EF%BC%89/" title="基于Java语言开发电销系统（虚拟呼叫中心+CRM通信助手）">基于Java语言开发电销系统（虚拟呼叫中心+CRM通信助手）</a><time datetime="2023-01-20T13:57:07.000Z" title="发表于 2023-01-20 21:57:07">2023-01-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/28/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E6%B5%85%E8%B0%88%E5%9F%BA%E4%BA%8ESIP%E5%8D%8F%E8%AE%AE%E6%90%AD%E5%BB%BA%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/" title="浅谈基于SIP协议搭建外呼系统"><img src="/img/%E5%A4%96%E5%91%BC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="浅谈基于SIP协议搭建外呼系统"/></a><div class="content"><a class="title" href="/2022/11/28/%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/%E6%B5%85%E8%B0%88%E5%9F%BA%E4%BA%8ESIP%E5%8D%8F%E8%AE%AE%E6%90%AD%E5%BB%BA%E5%A4%96%E5%91%BC%E7%B3%BB%E7%BB%9F/" title="浅谈基于SIP协议搭建外呼系统">浅谈基于SIP协议搭建外呼系统</a><time datetime="2022-11-28T13:57:07.000Z" title="发表于 2022-11-28 21:57:07">2022-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/11/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E8%A7%A3%E5%86%B3maven%E7%BC%96%E8%AF%91%E7%BC%BA%E5%B0%91%20rt.jar%20%E5%8C%85%E7%9A%84%E9%97%AE%E9%A2%98/" title="关于解决maven编译缺少 rt.jar 包的问题"><img src="/img/%E5%A4%96%E5%91%BC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于解决maven编译缺少 rt.jar 包的问题"/></a><div class="content"><a class="title" href="/2022/11/11/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8E%E8%A7%A3%E5%86%B3maven%E7%BC%96%E8%AF%91%E7%BC%BA%E5%B0%91%20rt.jar%20%E5%8C%85%E7%9A%84%E9%97%AE%E9%A2%98/" title="关于解决maven编译缺少 rt.jar 包的问题">关于解决maven编译缺少 rt.jar 包的问题</a><time datetime="2022-11-11T15:02:07.000Z" title="发表于 2022-11-11 23:02:07">2022-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/25/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8Etoken%E5%A4%B1%E6%95%88%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" title="关于token失效的处理方法"><img src="/img/%E5%A4%96%E5%91%BC.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于token失效的处理方法"/></a><div class="content"><a class="title" href="/2022/10/25/%E5%B7%A5%E4%BD%9C%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/%E5%85%B3%E4%BA%8Etoken%E5%A4%B1%E6%95%88%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/" title="关于token失效的处理方法">关于token失效的处理方法</a><time datetime="2022-10-25T15:02:07.000Z" title="发表于 2022-10-25 23:02:07">2022-10-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 欧阳日峰</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script data-pjax defer src="https://npm.elemecdn.com/tzy-blog/lib/js/theme/chocolate.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script><div class="aplayer no-destroy" data-id="8618755444" data-server="tencent" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
